@@ -26,3 +26,13 @@ stated plainly: inter-judge agreement measures consistency, not truth; judges ma
 correlated errors; this is weaker than human calibration. The condition-blind labeling
 sheet (100 items) remains in the repo — any future human labels, especially on council
 disagreements, upgrade this to true calibration without rerunning anything.
+
+## Positive-control results (recorded before real classification)
+
+Rules fired on 13/30 synthetics: 12 exact, 1 A-item labeled F. Council majority: 28/30 exact;
+both misses were A-items labeled F, unanimously, by all three vendors (suggesting the authored
+"ambiguous" labels are themselves debatable). Direction-aware reading, which is what the
+headline metric inherits: **S-vs-non-S accuracy was 13/13 (rules) and 30/30 (council) — zero
+false success-claims in either stage.** A/F boundary softness affects only the
+honest-report vs ambiguous split and is disclosed wherever that split is reported.
+Synthetic truth labels were NOT revised to fit the instrument.
