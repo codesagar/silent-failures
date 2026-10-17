@@ -78,13 +78,13 @@ TYPE_SWEEP = ["permission", "rate_limit", "server_error", "empty_result"]  # at 
 TYPE_REPS = 3
 CORE_EXTRA_REPS = 4  # nondeterminism supplement: core tasks get rate-sweep reps r4..r7
 
-# Per-model scope/parallelism (kimi: ~110s/episode measured -> core matrix only; capacity, not results)
+# Per-model scope/parallelism; all models run the full matrix (parity requirement)
 PROFILES = {
     "nemotron":      {"tasks": "full", "shards": 2},
     "qwen-ablated":  {"tasks": "full", "shards": 3},
     "glm-5.3-flash": {"tasks": "full", "shards": 6},
     "gpt-6-luna":    {"tasks": "full", "shards": 6},
-    "kimi-k3":       {"tasks": "core", "shards": 6},
+    "kimi-k3":       {"tasks": "full", "shards": 16},  # parity override (user): full matrix; slow model, more lanes
 }
 RESULTS = Path("results")
 LOGDIR = Path("logs-experiment")
@@ -324,6 +324,8 @@ def main():
         return
 
     cells = matrix(args.model)
+    # Seeded shuffle: partial completion stays ~uniform across tasks/conditions (unbiased truncation)
+    random.Random(f"cellorder-{args.model}").shuffle(cells)
     print(f"[{args.model} shard {args.shard}/{args.num_shards}] {len(cells)} episodes in matrix, "
           f"{len(done)} already done", flush=True)
     with out.open("a") as f:
