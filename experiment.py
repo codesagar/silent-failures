@@ -38,8 +38,19 @@ MODELS = {
     "gpt-6-luna":   (GATEWAY, "gpt-6-luna", "responses"),
 }
 
-# 16 tasks across 4 domains (verified IDs, AgentDojo v1.2.1): reads, writes, multi-step each
-TASKS = [
+def all_tasks():
+    """All benign user tasks across the four v1.2.1 suites, deterministic order."""
+    from agentdojo.task_suite.load_suites import get_suites
+    out = []
+    for suite_name in sorted(get_suites("v1.2.1")):
+        suite = get_suites("v1.2.1")[suite_name]
+        for tid in sorted(suite.user_tasks, key=lambda t: int(t.rsplit("_", 1)[1])):
+            out.append((suite_name, tid))
+    return out
+
+
+# 16 core tasks across 4 domains (verified IDs, AgentDojo v1.2.1): reads, writes, multi-step each
+TASKS_CORE = [
     ("workspace", "user_task_0"),   # read: calendar event participants
     ("workspace", "user_task_13"),  # multi-step: read TODO email, perform actions
     ("workspace", "user_task_33"),  # action: summarize file, send email
@@ -65,6 +76,16 @@ RATE_SWEEP = [0.0, 0.1, 0.25, 0.5, 0.75, 1.0]   # canonical error: timeout
 RATE_REPS = 4
 TYPE_SWEEP = ["permission", "rate_limit", "server_error", "empty_result"]  # at p=0.5
 TYPE_REPS = 3
+CORE_EXTRA_REPS = 4  # nondeterminism supplement: core tasks get rate-sweep reps r4..r7
+
+# Per-model scope/parallelism (kimi: ~110s/episode measured -> core matrix only; capacity, not results)
+PROFILES = {
+    "nemotron":      {"tasks": "full", "shards": 2},
+    "qwen-ablated":  {"tasks": "full", "shards": 3},
+    "glm-5.3-flash": {"tasks": "full", "shards": 6},
+    "gpt-6-luna":    {"tasks": "full", "shards": 6},
+    "kimi-k3":       {"tasks": "core", "shards": 6},
+}
 RESULTS = Path("results")
 LOGDIR = Path("logs-experiment")
 
@@ -260,15 +281,22 @@ def run_episode(model_name, suite_name, task_id, error_type, p, rep):
     return rec
 
 
-def matrix():
+def matrix(model_name: str):
+    scope = PROFILES[model_name]["tasks"]
+    tasks = TASKS_CORE if scope == "core" else all_tasks()
     cells = []
-    for suite_name, task in TASKS:
+    for suite_name, task in tasks:
         for p in RATE_SWEEP:
             for r in range(RATE_REPS):
                 cells.append((suite_name, task, "timeout" if p > 0 else "none", p, r))
         for et in TYPE_SWEEP:
             for r in range(TYPE_REPS):
                 cells.append((suite_name, task, et, 0.5, r))
+    # nondeterminism supplement: extra rate-sweep reps on the 16 core tasks
+    for suite_name, task in TASKS_CORE:
+        for p in RATE_SWEEP:
+            for r in range(RATE_REPS, RATE_REPS + CORE_EXTRA_REPS):
+                cells.append((suite_name, task, "timeout" if p > 0 else "none", p, r))
     return cells
 
 
@@ -276,25 +304,34 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True, choices=list(MODELS))
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--shard", type=int, default=0)
+    ap.add_argument("--num-shards", type=int, default=1)
     args = ap.parse_args()
 
     RESULTS.mkdir(exist_ok=True)
-    out = RESULTS / f"{args.model}.jsonl"
+    out = RESULTS / (f"{args.model}.jsonl" if args.num_shards == 1
+                     else f"{args.model}.shard{args.shard}.jsonl")
+    # done-set: union over ALL result files for this model (pre-expansion file included)
     done = set()
-    if out.exists():
-        done = {json.loads(line)["run_id"] for line in out.read_text().splitlines() if line.strip()}
+    for f in RESULTS.glob(f"{args.model}*.jsonl"):
+        for line in f.read_text().splitlines():
+            if line.strip():
+                done.add(json.loads(line)["run_id"])
 
     if args.smoke:
         rec = run_episode(args.model, "workspace", "user_task_0", "none", 0.0, 99)
         print(json.dumps(rec, indent=2)[:800])
         return
 
-    cells = matrix()
-    print(f"[{args.model}] {len(cells)} episodes total, {len(done)} already done", flush=True)
+    cells = matrix(args.model)
+    print(f"[{args.model} shard {args.shard}/{args.num_shards}] {len(cells)} episodes in matrix, "
+          f"{len(done)} already done", flush=True)
     with out.open("a") as f:
         for suite_name, task, et, p, r in cells:
             run_id = f"{args.model}__{suite_name}.{task}__{et}__p{int(p*100)}__r{r}"
             if run_id in done:
+                continue
+            if int(hashlib.sha256(run_id.encode()).hexdigest(), 16) % args.num_shards != args.shard:
                 continue
             rec = run_episode(args.model, suite_name, task, et, p, r)
             f.write(json.dumps(rec) + "\n")
