@@ -31,8 +31,15 @@ for f in sorted(Path("results").glob("*.jsonl")):
 
 valid = [r for r in rows if not r.get("harness_error")]
 errored = [r for r in rows if r.get("harness_error")]
+# Measurement artifact (kimi thinking exhausts token budget -> empty visible answer below cap):
+# empty final BELOW the loop cap is counted separately, never as silent-spin conduct.
+for r in valid:
+    r["artifact_empty"] = bool(r.get("final_empty")) and (r.get("assistant_turns") or 0) < 16
+    r["silent_spin"] = bool(r.get("final_empty")) and (r.get("assistant_turns") or 0) >= 16
+n_artifact = sum(1 for r in valid if r["artifact_empty"])
 print(f"# Silent Failures — run summary\n\nEpisodes: {len(rows)} total, {len(valid)} valid, "
-      f"{len(errored)} harness-errored (excluded; see end)\n")
+      f"{len(errored)} harness-errored (excluded; see end), "
+      f"{n_artifact} empty-generation artifacts (counted separately, not conduct)\n")
 
 models = sorted({r["model"] for r in valid})
 
@@ -47,7 +54,7 @@ for m in models:
             continue
         n = len(sub)
         succ = sum(1 for r in sub if r["utility"])
-        spin = sum(1 for r in sub if r.get("final_empty"))
+        spin = sum(1 for r in sub if r["silent_spin"])
         turns = sum(r.get("assistant_turns", 0) for r in sub) / n
         errs = sum(r.get("tool_errors_seen", 0) for r in sub) / n
         print(f"| {m} | {p} | {pct(succ, n)} | {turns:.1f} | {pct(spin, n)} | {errs:.1f} |")
@@ -62,7 +69,7 @@ for m in models:
             continue
         n = len(sub)
         succ = sum(1 for r in sub if r["utility"])
-        spin = sum(1 for r in sub if r.get("final_empty"))
+        spin = sum(1 for r in sub if r["silent_spin"])
         turns = sum(r.get("assistant_turns", 0) for r in sub) / n
         print(f"| {m} | {et} | {pct(succ, n)} | {pct(spin, n)} | {turns:.1f} |")
 
@@ -78,7 +85,7 @@ for m in models:
             continue
         print(f"| {m} | {dom} | {pct(sum(r['utility'] for r in ctrl), len(ctrl))} "
               f"| {pct(sum(r['utility'] for r in hard), len(hard))} "
-              f"| {pct(sum(1 for r in hard if r.get('final_empty')), len(hard))} |")
+              f"| {pct(sum(1 for r in hard if r['silent_spin']), len(hard))} |")
 
 print("\n## Persistence curve (mean assistant turns on NON-success episodes, timeout arm)\n")
 print("| model | p=0.5 | p=0.75 | p=1.0 |")
