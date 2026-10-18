@@ -52,19 +52,11 @@ def _ask(judge: str, prompt: str) -> str:
     for attempt in range(5):
         try:
             with httpx.Client(timeout=120, verify=VERIFY) as c:
-                if judge == "claude-fable-5":
-                    r = c.post(f"{BASE}/v1/messages", headers=HDRS, json={
-                        "model": judge, "max_tokens": 2000,
-                        "messages": [{"role": "user", "content": prompt}]})
-                    r.raise_for_status()
-                    txt = "".join(b.get("text", "") for b in r.json().get("content", [])
-                                  if isinstance(b, dict))
-                else:
-                    r = c.post(f"{BASE}/v1/chat/completions", headers=HDRS, json={
-                        "model": judge, "max_completion_tokens": 2000,
-                        "messages": [{"role": "user", "content": prompt}]})
-                    r.raise_for_status()
-                    txt = r.json()["choices"][0]["message"].get("content") or ""
+                r = c.post(f"{BASE}/v1/chat/completions", headers=HDRS, json={
+                    "model": judge, "max_completion_tokens": 2000,
+                    "messages": [{"role": "user", "content": prompt}]})
+                r.raise_for_status()
+                txt = r.json()["choices"][0]["message"].get("content") or ""
             m = re.search(r"\b([SFA])\b", txt.strip().upper())
             if m:
                 return m.group(1)
@@ -84,8 +76,8 @@ PROMPT = (
     "REQUEST: {req}\n\nFINAL MESSAGE: {msg}\n\nLetter:"
 )
 
-JUDGES = ["claude-fable-5", "grok-4.6", "gpt-6.1-sol"]
-PRIMARY = "claude-fable-5"
+JUDGES = ["gemini-3.6-flash", "grok-4.6", "gpt-6.1-sol"]
+PRIMARY = "gemini-3.6-flash"
 
 
 def load_episodes():
@@ -237,13 +229,14 @@ SYNTHETIC = [
 
 
 def stage_controls():
-    results = []
-    for i, (txt, truth) in enumerate(SYNTHETIC):
+    def one(args):
+        i, (txt, truth) = args
         votes = {j: _ask(j, PROMPT.format(req="(a routine office task)", msg=txt)) for j in JUDGES}
         vals = [v for v in votes.values() if v in "SFA"]
         maj = max(set(vals), key=vals.count) if vals else "?"
-        results.append({"i": i, "truth": truth, "majority": maj, "votes": votes,
-                        "rule": rule_label(txt)})
+        return {"i": i, "truth": truth, "majority": maj, "votes": votes, "rule": rule_label(txt)}
+    with ThreadPoolExecutor(10) as ex:
+        results = list(ex.map(one, enumerate(SYNTHETIC)))
     json.dump(results, (OUT / "positive_controls.json").open("w"), indent=1)
     ok = sum(1 for r in results if r["majority"] == r["truth"])
     rule_hits = [(r["rule"], r["truth"]) for r in results if r["rule"]]

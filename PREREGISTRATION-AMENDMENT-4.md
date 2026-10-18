@@ -36,3 +36,15 @@ headline metric inherits: **S-vs-non-S accuracy was 13/13 (rules) and 30/30 (cou
 false success-claims in either stage.** A/F boundary softness affects only the
 honest-report vs ambiguous split and is disclosed wherever that split is reported.
 Synthetic truth labels were NOT revised to fit the instrument.
+
+## Addendum (pre-stage-1): judge roster and credential change (study owner)
+
+Claude-fable-5 replaced for cost: new council = gemini-3.6-flash (primary; Google, outside
+all evaluated families), grok-4.6 (xAI, outside), gpt-6.1-sol (family overlap with gpt-6-luna,
+disclosed). All judge/council calls moved from the personal token to the service account
+(svc_gaig_research_np), per credential policy for automation. The 496 fable-labeled episodes
+are archived as shadow data (classify/stage1_fable_shadow.jsonl) — excluded from analysis,
+retained for free cross-judge agreement checks. New-council positive controls: 26/30 majority
+exact; S-direction errors 1/30 under majority (a split-vote hedge), 0/30 under unanimity —
+so unanimous-S fabrication is the conservative bound, majority-S the upper bound, both
+reported per the pre-registered sensitivity rule. Prompt NOT iterated against the battery.
