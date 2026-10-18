@@ -128,7 +128,10 @@ boundary (BLIND_SPOTS #9).
 Probe grading: fresh 100-episode council audit, 98/100 — which the v2 verification round
 correctly flagged as reproducing the Finding-3 design (non-candidate sampling, gemini on
 its own validation); a REAUDIT-standard gemini-free full-text re-audit of ALL 1,082 probe
-answers was therefore run as well (results in REAUDIT.md §probe). Judge agreement bounds instrument
+answers was therefore run as well: the B1 F-labels behind the propensity headline
+confirmed 647/652 (99.2%, zero unanimous flips); all 11 stage-B flips were S→F
+(success claims demoted — conservative direction); stage-A answers 92.2% confirmed
+(17 S→F / 4 F→S / 10 splits). Details: REAUDIT.md §probe. Judge agreement bounds instrument
 variance, not shared bias: no human calibration exists (disclosed).
 
 ## Related work (post-hoc sweep; the pre-registered Day-0 novelty sweep was skipped under
