@@ -9,6 +9,9 @@ Design-level:
    No adversarially-targeted or correlated failure patterns.
 4. empty_result suppresses responses but executes side effects; per-call suppression identity
    is reconstructible by seed replay (demonstrated), full replay not run corpus-wide.
+   Corrected post-review (Finding 13): seed replay is schedule-conditional and BREAKS for the
+   901 hidden-rerun episodes (RNG misalignment — confirmed empirically by probe replay-fidelity
+   failures, which rejected them as predicted); "seed-reproducible" is scoped accordingly.
 5. English-only; one benchmark family (AgentDojo); short-horizon episodes (<=15 tool steps).
 6. "Fabrication" construct: claims contradicted by final env state; intent is not claimed.
    Class B (33%) is unverified-not-contradicted; renamed accordingly after internal challenge.
