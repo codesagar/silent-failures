@@ -11,7 +11,7 @@ nothing else. Reviewer reports are archived verbatim in `reviews/`.
 | 2 | AgentDojo hidden re-run bug (901 episodes, glm/nemotron/kimi) | **fixed** (tables); upstream report declared-not-done | REMEDIATED_TABLES.md (exclusion + counts); PROBE_ANALYSIS.md (separate slice); Amendment 5 (replay-fidelity confirmation) | Excluded from all primary tables; protocol asymmetry disclosed; bug confirmed empirically via probe replay infidelity |
 | 3 | Instrument circularity (gemini self-validation; audit excluded candidates; one proven misread) | **fixed** (human labels substituted, disclosed) | REAUDIT.md + classify/reaudit*.json(l); BLIND_SPOTS #13 | Gemini-free full-text controls-gated re-audit of all 864 candidates: 809 confirmed, bound 809–842; reviewer-proven misread independently caught; reverse audit 197/200, 0 flips. Owner ruled out hand-labeling (time) — disclosed |
 | 4 | Ablation-causal language unsupported | **fixed in v2 prose** | REPORT.md v2 headline 6 | All causal phrasing withdrawn; missing same-base control named as the licensing experiment |
-| 5 | "Silent spin" right-censored; "never reports" overclaims | **fixed** | PREREGISTRATION-AMENDMENT-5.md; PROBE_ANALYSIS.md; probe.py + probe_results/ | All 1,300 censored episodes probed: spin is nudge-robust (54–68%) but capability exists (95–98% forced acknowledgment); construct renamed "capped without user-facing output" |
+| 5 | "Silent spin" right-censored; "never reports" overclaims | **fixed** | PREREGISTRATION-AMENDMENT-5.md; PROBE_ANALYSIS.md; probe.py + probe_results/ | All 1,300 censored episodes probed: spin is nudge-robust (54–68%; wording-sensitive, W1−W2 +16 to +23pp, both reported; A6=0) but capability exists (95–98% forced acknowledgment); construct renamed "capped without user-facing output" |
 | 6 | CIs ignore task clustering; "Jeffreys" was a normal approximation | **fixed** | REMEDIATED_TABLES.md | Task-cluster bootstrap (10k, seed 17) on headline cells; exact Beta-quantile Jeffreys everywhere; headlines survive clustering |
 | 7 | Core-16 oversampling reweights pooled cells; stale header | **fixed** | REMEDIATED_TABLES.md (r0–r3); DETERMINISTIC_TABLES.md + analyze.py headers | Primary tables design-balanced; 1,920 supplement episodes confined to variance analysis; header corrected (pool was all 97 tasks) |
 | 8 | Flakiness conflated injection randomness with model nondeterminism | **fixed** | REMEDIATED_TABLES.md (p=0-only table); REPORT.md v2 headline 5 | Honest rate 5.2–15.5% (was 22–43%); presented as replication of 2026 randomness literature |
@@ -35,3 +35,17 @@ nothing else. Reviewer reports are archived verbatim in `reviews/`.
   the experiment that would license any ablation-causal claim.
 - Human calibration of the claim instrument — ruled out for time by the study owner;
   the strengthened re-audit bounds instrument variance, not shared bias.
+
+## The v2 verification round (post-remediation cross-validation)
+
+| Check | Agent | Verdict | Artifact |
+|---|---|---|---|
+| Independent recomputation of every targeted v2 number from raw JSONL (fresh code, analysis scripts never opened; supervisor-executed verbatim, disclosed) | recomputation auditor | **CLEAN** — ~70/70 match; 2 reproducibility gaps (now patched in REAUDIT.md and PROBE_ANALYSIS disclosures) | verification/v2-recompute-audit.md |
+| Adversarial methodology & inference review of the v2 layer | methodology reviewer | **BLOCK → fixed**: 0 fatal, 7 major (M1–M7), 4 minor, 4 nits — every item fixed or disclosed; see TRANSPARENCY §5 | verification/v2-methodology-review.md |
+
+Fixes landed for the round: PERSISTENCE.md + persistence.py (M1); A3 mechanism split in
+PROBE_ANALYSIS.md + prose corrections in three documents (M2); strengthened probe-label
+re-audit in REAUDIT.md §probe (M3); direction-of-bias caveat on the reverse audit (M4);
+864-pool scoping (M5); capability-conditioned tables (M6); TIMELINE.md (M7); McNemar
+caveats, A5-by-dose table, zero-call p=1.0 episode disclosure, vendor-overlap check,
+NIT-1 code note, filter-overlap note (minors).

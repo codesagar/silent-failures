@@ -2,10 +2,10 @@
 
 **A pre-registered, 19,380-episode behavioral study of five models across 97 tasks, four
 domains, six failure rates, and five failure types — then adversarially reviewed, remediated,
-and extended with a pre-registered wrap-up probe of every censored episode.**
+extended with a pre-registered **post-hoc** wrap-up probe of every censored episode, and independently re-verified (verification/: recomputation audit CLEAN; methodology review findings fixed or disclosed below).**
 Dataset frozen ~16h in; evidence package at ~33h; five-reviewer adversarial swarm,
 remediation, and the 1,300-episode probe followed (2026-10-17/18, all on one machine).
-Repo-pinned. Seed-reproducible per episode, with one disclosed exception: 901 episodes
+Repo-pinned. Timeline reconstructed against git in TIMELINE.md (two clerical document dates corrected there; the registration commit landed 46 minutes into the run, so 94% of episodes provably post-date it, and a verified sensitivity check shows the first 6% move no headline rate by >0.9pp). Seed-reproducible per episode, with one disclosed exception: 901 episodes
 affected by a benchmark-level hidden re-run bug (below) break exact replay and are excluded
 from primary tables. **v2 supersedes v1** (git history preserves it); every v1 number
 challenged by review is restated here from `REMEDIATED_TABLES.md`.
@@ -23,8 +23,9 @@ success claims are anchored at a high **baseline on ordinary, uninjected failure
 total outage — agents assume success unless loudly contradicted. The one abliterated model
 in the matrix almost never claims false success but almost never reports either: it burns
 its step budget silently in 91.5% of hard-failure episodes — yet the wrap-up probe shows
-this is **propensity, not inability**: when forced to answer, capped models acknowledge
-non-completion 95–98% of the time.
+this is **propensity, not inability**: among capped episodes that also ignored a user
+nudge, a forced tools-off question produced an acknowledgment of non-completion 95–98%
+of the time — a lower bound on reporting capability (Amendment 5's S1 framing).
 
 ## Headline findings (restated post-review; all primary numbers from REMEDIATED_TABLES.md:
 design-balanced reps r0–r3, hidden-reruns excluded, dosed-only denominators, exact Jeffreys
@@ -40,30 +41,41 @@ intervals + task-cluster bootstrap on headline cells)
 2. **"Capped without output" is a propensity, not a deficit (wrap-up probe, Amendment 5).**
    All 1,300 censored episodes were probed (PROBE_ANALYSIS.md). Under a naturalistic user
    nudge *during the continuing outage*, glm/kimi/qwen resumed tool use without addressing
-   the user in 53.7–68.4% of clean episodes (nudge-robust spin); but when tools were removed
-   and an answer demanded, **95.0–98.3% produced an acknowledgment of non-completion**
+   the user in 53.7–68.4% of clean episodes (nudge-robust spin); but when tools were removed and an
+   answer demanded (stage B, reached only by nudge-non-responders), **95.0–98.3% produced
+   an acknowledgment of non-completion — a lower bound on reporting capability**
    (behavioral "still no answer" = 0; the single remaining case is a `finish_reason=length`
-   serving artifact). 41–58% of nudge answers claimed success *consistent* with post-probe
-   environment state — the probe's extra turns let real work finish. Nudge-wording
+   serving artifact). 41–58% of nudge answers claimed success *consistent* with post-probe environment
+   state. Mechanism split (PROBE_ANALYSIS.md): of 163 such answers, 112 completed the work
+   during the probe window and **51 (31%; qwen 49/123) were already complete before any
+   probe turn** — for those, cap-censoring had hidden finished work, and the original
+   "capped" label was concealing success, not failure. Nudge-wording
    sensitivity was declared per pre-registration (+16 to +23pp A5 between two neutral
    wordings; both reported). The probe does not relabel any original episode.
 3. **Unsupported success claims track failure *visibility*, anchored at a high baseline.**
    On ordinary (p=0, uninjected) failures, models claim success in **40.7–94.1%** of
    episodes — the baseline self-awareness result. Under injection (dosed-only), claims run
    37–93% at p=0.1 and **0% at p=1.0 for every model**; silently-lost responses are the
-   worst channel for 4/5 models (up to 61.1%). Decomposition of all 864 candidate
-   contradicted claims: 3% flagrant (final call visibly errored), 64% partial-work-as-full,
-   33% unverified-not-contradicted. An independent two-judge full-text re-audit confirmed
-   **809/864 (bound 809–842 under judge splits)** (REAUDIT.md). Models assume success
-   rather than check: spontaneous **post-write re-reading** is 1.9–29.5% (novel re-reads
-   1.4–18.1%); the most re-reading model is the abliterated one, and re-reading is not
-   separable from blind retry in this design (READBACK.md).
-4. **Over-persistence is a measurable trait.** The abliterated model retries an
-   already-failed tool 12.9×/episode (streaks to 25) vs 1.8× for the most calibrated
-   model; 3/5 models peak persistence at p=0.75 rather than p=1.0 (intermittent
-   reinforcement, H4 partially supported). (Micro-metrics from SUPPLEMENTARY_ANALYSES.md,
-   computed pre-remediation; the review challenged their *construct naming*, not these
-   values.)
+   worst channel for 4/5 models (up to 61.1%). Decomposition of all 864 label-level candidate unsupported-success claims (deliberately
+   the FULL v1 numerator — it still includes hidden-rerun and supplement episodes and
+   zero-injection failures; under the primary-table filters the same definition yields 742):
+   3% flagrant (final call visibly errored), 64% partial-work-as-full, 33%
+   unverified-not-contradicted (so "contradicted" is v1 naming, not a property of all 864).
+   An independent two-judge full-text re-audit confirmed the S *label* — what the message
+   claims, not remediated fabrication status — on **809/864 (bound 809–842 under judge
+   splits)** (REAUDIT.md). Models assume success
+   rather than check: spontaneous **post-write re-reading** is 1.9–29.5% (novel re-reads 1.4–18.1%) —
+   measured only on the silent-loss arm's episodes with at least one write (n=106–166 per
+   model), not corpus-wide; the most re-reading model is the abliterated one, and
+   re-reading is not separable from blind retry in this design (READBACK.md).
+4. **Over-persistence is a measurable trait.** Recomputed on the remediated primary set
+   with a committed script (PERSISTENCE.md, superseding the v1 SUPPLEMENTARY micro-metrics,
+   which the code review had challenged — no committed script, hidden-rerun contamination,
+   last-attempt-only transcripts): the abliterated model retries an already-errored tool
+   **13.1×/episode (streaks to 22) vs 2.3×** for the most calibrated model. H4
+   (persistence peak at p=0.75): mean turns peak there for 3/5 models and mean retries for
+   3/5, but several peaks are sub-1-turn and qwen's sits at the loop cap — honestly:
+   **mixed, weakly supportive, exploratory; not a confirmed effect.**
 5. **Repeat-reliability, restated honestly (replication, not novelty).** The v1 "22–43%
    of identical cells flip" conflated injected-environment randomness with model
    nondeterminism. On p=0 cells (no injection randomness): **5.2–15.5%** of
@@ -97,12 +109,26 @@ intervals + task-cluster bootstrap on headline cells)
      -> wrap-up probe of all 1,300 censored episodes (seeded env replay, fidelity-checked)
 ```
 
+Capability conditioning (pre-registered, now applied — REMEDIATED_TABLES.md): restricting
+to tasks each model passes ≥3/4 control reps leaves every headline-1 rate within 1pp
+(e.g. qwen capped 91.9% vs 91.5%), so the conduct dissociation is not a can't-do-the-task
+artifact. The p=0 baseline conditioned the same way keeps its direction but loses precision
+(n=3–8 per model; e.g. luna 3/8) — the 41–94% baseline range should be quoted with that
+caveat.
+
 Instrument validation, with its limits: 500-episode random audit 99.4% agreement — but that
 audit excluded candidate fabrications by construction and gemini validated its own labels
 (swarm Finding 3). Remediation: independent two-judge full-text re-audit of **all 864**
 candidates (809 confirmed; the one reviewer-proven unanimous misread was independently
-caught and removed) plus a 200-episode reverse audit of F-labels (197 confirmed, 0 flips).
-Probe grading: fresh 100-episode council audit, 98/100. Judge agreement bounds instrument
+caught and removed) plus a 200-episode reverse audit of F-labels (197 confirmed, 0 flips) — with a declared
+direction-of-bias limit: the re-audit prompt collapses the ambiguous boundary toward F
+(6/10 A-controls), so the reverse audit is informative against F-should-be-S errors and
+near-blind on F-vs-A; "acknowledges non-completion" headlines inherit the soft A/F
+boundary (BLIND_SPOTS #9).
+Probe grading: fresh 100-episode council audit, 98/100 — which the v2 verification round
+correctly flagged as reproducing the Finding-3 design (non-candidate sampling, gemini on
+its own validation); a REAUDIT-standard gemini-free full-text re-audit of ALL 1,082 probe
+answers was therefore run as well (results in REAUDIT.md §probe). Judge agreement bounds instrument
 variance, not shared bias: no human calibration exists (disclosed).
 
 ## Related work (post-hoc sweep; the pre-registered Day-0 novelty sweep was skipped under
@@ -142,6 +168,8 @@ instructed verification). Full sweep with per-claim verdicts and contradictions:
 | **PROBE_ANALYSIS.md** + probe_results/ | wrap-up probe outcomes + claim grading, per-model, pre-registered slices |
 | **REAUDIT.md** | strengthened independent re-audit of all fabrication candidates + reverse audit |
 | **READBACK.md** + readback.py | post-write re-reading, committed definitions, novel-vs-repeat split |
+| **PERSISTENCE.md** + persistence.py | H4 + retry micro-metrics on the primary set (supersedes v1 micro-metrics) |
+| **SCOPE_AND_VALIDITY.md**, **TIMELINE.md**, verification/ | scope card; git-verified timeline; independent v2 recomputation audit + methodology review |
 | TRANSPARENCY.md | all 15 review findings with dispositions; REVIEW_RESPONSE.md maps finding→artifact |
 | reviews/ | the five adversarial reports + probe design review, verbatim |
 | CONDUCT_ANALYSIS.md, SUPPLEMENTARY_ANALYSES.md, evidence_classes.md, DETERMINISTIC_TABLES.md | v1 analyses (superseded where TRANSPARENCY says so; micro-metrics still current) |
