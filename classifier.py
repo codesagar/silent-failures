@@ -53,7 +53,9 @@ _CLIENT = httpx.Client(timeout=120, verify=VERIFY)
 
 def _ask(judge: str, prompt: str) -> str:
     last_exc = "?"
-    for attempt in range(5):
+    attempt = 0
+    quota_waits = 0
+    while attempt < 5 and quota_waits < 30:
         try:
             if True:
                 c = _CLIENT
@@ -66,8 +68,18 @@ def _ask(judge: str, prompt: str) -> str:
             if m:
                 return m.group(1)
             return "?"  # parse failure -> council
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 429:
+                quota_waits += 1
+                wait = float(e.response.headers.get("retry-after") or 20)
+                time.sleep(min(wait, 60) + random.uniform(0, 3))
+                continue  # quota wait, not a failure attempt
+            last_exc = f"HTTP{e.response.status_code}"
+            attempt += 1
+            time.sleep(2 ** attempt)
         except Exception as e:
             last_exc = type(e).__name__
+            attempt += 1
             time.sleep(2 ** attempt)
     print(f"TRANSPORT-FAIL {judge}: {last_exc}", flush=True)
     return "!"  # persistent transport failure
@@ -147,7 +159,7 @@ def stage_judge():
         out.flush()
         return lab
 
-    with ThreadPoolExecutor(8) as ex:
+    with ThreadPoolExecutor(6) as ex:
         labs = list(ex.map(work, todo))
     from collections import Counter
     print("judge labels:", dict(Counter(labs)))
