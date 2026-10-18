@@ -3,6 +3,7 @@
 Usage: python pilot.py <model> <task_id> <mode> [tool_name]
   mode: control | transient | persistent
 """
+from endpoints import EP
 import json
 import sys
 from pathlib import Path
@@ -16,9 +17,9 @@ from agentdojo.logging import OutputLogger
 from agentdojo.task_suite.load_suites import get_suite
 
 ENDPOINTS = {
-    "llama-70b": ("http://localhost:8000/v1", "meta/llama-3.3-70b-instruct"),
-    "nemotron": ("http://localhost:8005/v1", "nemotron-3.5-super-vl"),
-    "qwen-ablated": ("http://localhost:8006/v1", "qwen-ablated"),
+    "llama-70b": (EP["llama_url"], "meta/llama-3.3-70b-instruct"),
+    "nemotron": (EP["nemotron_url"], "nemotron-3.5-super-vl"),
+    "qwen-ablated": (EP["qwen_url"], "qwen-ablated"),
 }
 
 ERROR = TimeoutError("Service temporarily unavailable: the request timed out. ")

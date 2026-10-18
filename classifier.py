@@ -22,8 +22,10 @@ import threading
 
 import httpx
 
-BASE = "https://your-llm-gateway.example.com"
-TOKEN = Path(os.path.expanduser("~/.config/secrets/llm-gateway-token")).read_text().strip()
+from endpoints import EP, token
+
+BASE = EP["gateway_base"]
+TOKEN = token()
 HDRS = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
 VERIFY = os.environ.get("SSL_CERT_FILE") or os.path.expanduser("~/cacerts.pem")
 

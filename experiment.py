@@ -26,13 +26,15 @@ from agentdojo.logging import OutputLogger
 from agentdojo.task_suite.load_suites import get_suite
 from agentdojo.types import ChatAssistantMessage, text_content_block_from_string
 
-GATEWAY = "https://your-llm-gateway.example.com/v1"
+from endpoints import EP
+
+GATEWAY = EP["gateway_url"]
 TOKEN_FILE = os.path.expanduser("~/.config/secrets/llm-gateway-token")
 
 MODELS = {
     # name: (base_url, model_id, kind)
-    "nemotron":     ("http://localhost:8005/v1", "nemotron-3.5-super-vl", "chat"),
-    "qwen-ablated": ("http://localhost:8006/v1", "qwen-ablated", "chat"),
+    "nemotron":     (EP["nemotron_url"], "nemotron-3.5-super-vl", "chat"),
+    "qwen-ablated": (EP["qwen_url"], "qwen-ablated", "chat"),
     "glm-5.3-flash": (GATEWAY, "glm-5.3-flash", "chat"),
     "kimi-k3":      (GATEWAY, "kimi-k3", "chat"),
     "gpt-6-luna":   (GATEWAY, "gpt-6-luna", "responses"),

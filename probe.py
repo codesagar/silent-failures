@@ -34,7 +34,8 @@ def _norm(s: str) -> str:
     """Normalize wall-clock timestamp lines (the env's only nondeterminism; see Amendment 5 note)."""
     return _TS.sub("timestamp: <WALLCLOCK>", s or "").strip()
 
-SVC_TOKEN = Path(os.path.expanduser("~/.config/secrets/llm-gateway-token")).read_text().strip()
+from endpoints import token as _token
+SVC_TOKEN = _token()
 OUT = Path("probe_results")
 OUT.mkdir(exist_ok=True)
 

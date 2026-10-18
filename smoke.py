@@ -1,4 +1,5 @@
 """Smoke test: run one benign AgentDojo workspace task against an h200 vLLM endpoint."""
+from endpoints import EP
 import sys
 from pathlib import Path
 
@@ -11,9 +12,9 @@ from agentdojo.benchmark import run_task_without_injection_tasks
 from agentdojo.task_suite.load_suites import get_suite
 
 ENDPOINTS = {
-    "llama-70b": ("http://localhost:8000/v1", "meta/llama-3.3-70b-instruct"),
-    "nemotron": ("http://localhost:8005/v1", "nemotron-3.5-super-vl"),
-    "qwen-ablated": ("http://localhost:8006/v1", "qwen-ablated"),
+    "llama-70b": (EP["llama_url"], "meta/llama-3.3-70b-instruct"),
+    "nemotron": (EP["nemotron_url"], "nemotron-3.5-super-vl"),
+    "qwen-ablated": (EP["qwen_url"], "qwen-ablated"),
 }
 
 name = sys.argv[1] if len(sys.argv) > 1 else "llama-70b"
