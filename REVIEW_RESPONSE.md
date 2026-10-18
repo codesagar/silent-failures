@@ -25,8 +25,12 @@ nothing else. Reviewer reports are archived verbatim in `reviews/`.
 
 ## What remains open (declared, not done)
 
-- Upstream AgentDojo bug report (hidden re-run on content=None, task_suite.py:383-394,
-  v0.1.35).
+- Upstream AgentDojo bug report: independently assessed (verification/
+  agentdojo-bug-assessment.md) — verdict: real but narrow; unfixed on current main,
+  undocumented, no duplicate issue; results-corrupting when triggered (checkers see the
+  dirty cumulative environment) but vanilla-frequency unquantified; issue text drafted
+  with honest scoping and a PR offer. Filing from the owner's GitHub account is the
+  owner's call.
 - Corpus-wide full-text re-judge outside fabrication numerators (cost; residual risk
   documented in TRANSPARENCY #9).
 - Clean no-stage-A V1 probe arm — pre-registered contingency NOT triggered (behavioral

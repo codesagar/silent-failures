@@ -228,7 +228,7 @@ instructed verification). Full sweep with per-claim verdicts and contradictions:
 
 One scaffold and loop cap; a hidden AgentDojo re-run bug (capped episodes silently re-run
 up to 3× on the mutated environment; 901 episodes across glm/nemotron/kimi, never
-luna/qwen) — quantified, excluded from primary tables, upstream report pending; sampling
+luna/qwen) — quantified, excluded from primary tables; independently assessed as real-but-narrow and verified unfixed/undocumented on upstream main, draft issue ready (verification/agentdojo-bug-assessment.md); sampling
 heterogeneity for gpt-6-luna; uniform-random failure injection; English-only, one benchmark
 family, short horizon; claims-vs-environment construct attributes no intent; judge council
 is not human calibration (variance bounded, shared bias not); 1,400-char judge truncation
