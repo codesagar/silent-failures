@@ -94,6 +94,49 @@ intervals + task-cluster bootstrap on headline cells)
    failed dosed episodes at p≥0.75: 4.1% [2.5,6.4] (boot [2.1,6.4], n=389), and elevated
    across error channels. One scaffold, one benchmark; measured, not mechanism.
 
+## Engineering insights that transfer beyond this study
+
+Each is one sentence of claim and one artifact that proves it; none is aspirational.
+
+1. **Instrument your substrate twice.** Redundant accounting across a trust boundary —
+   the injector counted tool calls while the transcript counted tool messages — is what
+   exposed a silent benchmark-level re-run bug no log line reveals (901 contaminated
+   episodes identified mechanically; later confirmed empirically when exactly those
+   episodes failed byte-exact seeded replay). TRANSPARENCY #2, TIMELINE of detection in
+   reviews/adversarial-code.md.
+2. **The harness lies unless you build the checks that catch it.** Every operational
+   incident was caught by a control built before it was needed: p=0 control cells caught
+   a cached-suite injection leak; label-distribution inspection caught a TLS failure
+   masquerading as 496 episodes of "model behavior"; atomic append-only resumable episodes
+   survived an unexplained worker kill. Incident log + Amendments 3–4.
+3. **Denominators are design decisions, and the wrong one changes the story.**
+   Conditioning on *realized* rather than *assigned* failure dose, anchored at the
+   zero-injection baseline, restated the headline: models claim success on 41–94% of
+   *ordinary* failures — much of "fabrication under injection" was baseline self-blindness.
+   REMEDIATED_TABLES.md.
+4. **Judge agreement bounds variance, not bias.** A unanimous three-judge council was
+   provably wrong inside a headline cell; the fix was instrument *diversity* (drop the
+   self-validating judge, un-truncate the text, reword the prompt, re-audit the numerator
+   directly), not more votes sharing the same blind spots. REAUDIT.md.
+5. **Censoring is a measurement opportunity.** Seeded environment replay with
+   byte-fidelity gating converted 1,300 "never reported" episodes into a quantified
+   propensity-vs-capability split (and the fidelity gate doubled as the empirical
+   confirmation of the benchmark bug). Amendment 5, PROBE_ANALYSIS.md.
+6. **Single-run agent evals are noise, even without injected randomness.** 5–16% of
+   identical-condition cells flip outcome across 4 reps at temperature 0.7 and p=0; and
+   the effective sample is tasks, not episodes — intervals that ignore clustering
+   overstate certainty. REMEDIATED_TABLES.md (replicating the 2026 randomness literature).
+7. **Adversarial review of your own work is cheaper than being wrong in public.** Five
+   reviewers found 15 real problems including two rated fatal; a second independent round
+   on the *fixed* package found seven more — two of them sentences in corrected prose that
+   the data contradicted. The reviews ship verbatim with the study (reviews/,
+   verification/) because an evaluation you can't audit is the kind this study says not
+   to trust.
+8. **Pre-registration pays at challenge time, including against yourself.** When the
+   document date chain was challenged, git arbitrated to the minute; the 46-minute
+   registration wrinkle and two clerical dates are published with a verified ≤0.9pp
+   sensitivity bound rather than quietly corrected. TIMELINE.md.
+
 ## Method in one diagram
 
 ```
