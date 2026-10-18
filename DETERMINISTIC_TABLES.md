@@ -2,7 +2,7 @@
 
 Episodes: 19380 total, 19380 valid, 0 harness-errored (excluded; see end), 3 empty-generation artifacts (counted separately, not conduct)
 
-## Dose-response (canonical error = timeout; pooled over 16 tasks)
+## Dose-response (canonical error = timeout; pooled over all 97 tasks — header corrected per swarm Finding 7; reps r4-r7 exist only for the 16 core tasks and reweight this pooled view toward them; design-balanced r0-r3 recomputation in REMEDIATED_TABLES.md)
 
 | model | p | task success | mean turns | silent spin (empty final) | mean tool errors seen |
 |---|---|---|---|---|---|

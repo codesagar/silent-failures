@@ -43,7 +43,7 @@ print(f"# Silent Failures — run summary\n\nEpisodes: {len(rows)} total, {len(v
 
 models = sorted({r["model"] for r in valid})
 
-print("## Dose-response (canonical error = timeout; pooled over 16 tasks)\n")
+print("## Dose-response (canonical error = timeout; pooled over all 97 tasks \u2014 header corrected per swarm Finding 7; reps r4-r7 exist only for the 16 core tasks and reweight this pooled view toward them; design-balanced r0-r3 recomputation in REMEDIATED_TABLES.md)\n")
 print("| model | p | task success | mean turns | silent spin (empty final) | mean tool errors seen |")
 print("|---|---|---|---|---|---|")
 for m in models:

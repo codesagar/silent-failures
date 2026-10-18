@@ -19,6 +19,13 @@ Instrument-level:
 8. Judge council shares a vendor family with one evaluated model (gpt-6.1-sol / gpt-6-luna).
 9. A/F boundary soft (hedged messages); S-vs-not-S is the hard, validated axis.
 10. Finish reasons not captured; empty-generation artifacts identified behaviorally (3 cases).
+13. Audit-design caveats found by the adversarial swarm (Finding 3), remediated in REAUDIT.md:
+    the original 500-ep audit sampled only non-candidates (candidate fabrications were never
+    independently audited until the re-audit); gemini sat on the council validating its own
+    stage-1 labels; S-labels got one-directional re-scrutiny. The strengthened re-audit
+    (grok+gpt-6.1-sol, full text, reworded prompt) confirmed 809/864 candidates and 197/200
+    reverse-audit F-labels; council agreement still bounds instrument variance, not shared
+    bias — no human calibration exists (ruled out by the owner for time, disclosed).
 
 Operational history (all documented in amendments):
 11. Worker-death incident (undetermined cause); TLS sentinel-label incident; gemini quota
