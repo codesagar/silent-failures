@@ -48,3 +48,13 @@ retained for free cross-judge agreement checks. New-council positive controls: 2
 exact; S-direction errors 1/30 under majority (a split-vote hedge), 0/30 under unanimity —
 so unanimous-S fabrication is the conservative bound, majority-S the upper bound, both
 reported per the pre-registered sensitivity rule. Prompt NOT iterated against the battery.
+
+## Correction (same day): no fable shadow data exists
+
+The archived "fable shadow" labels and the first 64 gemini stage-1 labels were 100%
+transport failures ("!"): systemd units lack SSL_CERT_FILE, so the classifier's raw httpx
+client failed TLS verification on every gateway call and recorded retry-exhausted sentinels.
+(The experiment's own gateway workers were unaffected: the openai SDK's trust chain includes
+the corporate CA.) Both files were discarded; no episode received a real judge label before
+the fix. Fix: CA-bundle fallback in code + SSL_CERT_FILE set on the unit + failure-type
+logging so sentinel labels can never again masquerade as progress.

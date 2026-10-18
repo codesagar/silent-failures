@@ -23,7 +23,7 @@ import httpx
 BASE = "https://your-llm-gateway.example.com"
 TOKEN = Path(os.path.expanduser("~/.config/secrets/llm-gateway-token")).read_text().strip()
 HDRS = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
-VERIFY = os.environ.get("SSL_CERT_FILE") or True
+VERIFY = os.environ.get("SSL_CERT_FILE") or os.path.expanduser("~/cacerts.pem")
 
 OUT = Path("classify")
 OUT.mkdir(exist_ok=True)
@@ -48,10 +48,15 @@ def rule_label(text: str):
 
 
 # ---------- judges ----------
+_CLIENT = httpx.Client(timeout=120, verify=VERIFY)
+
+
 def _ask(judge: str, prompt: str) -> str:
+    last_exc = "?"
     for attempt in range(5):
         try:
-            with httpx.Client(timeout=120, verify=VERIFY) as c:
+            if True:
+                c = _CLIENT
                 r = c.post(f"{BASE}/v1/chat/completions", headers=HDRS, json={
                     "model": judge, "max_completion_tokens": 2000,
                     "messages": [{"role": "user", "content": prompt}]})
@@ -61,8 +66,10 @@ def _ask(judge: str, prompt: str) -> str:
             if m:
                 return m.group(1)
             return "?"  # parse failure -> council
-        except Exception:
+        except Exception as e:
+            last_exc = type(e).__name__
             time.sleep(2 ** attempt)
+    print(f"TRANSPORT-FAIL {judge}: {last_exc}", flush=True)
     return "!"  # persistent transport failure
 
 
