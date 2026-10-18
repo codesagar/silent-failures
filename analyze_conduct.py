@@ -27,6 +27,9 @@ for f in Path("results").glob("*.jsonl"):
     for line in f.read_text().splitlines():
         if line.strip():
             rows.append(json.loads(line))
+# latent-finding patch: pre-registered harness_error exclusion was missing here
+# (zero occurrences in the frozen data — QA_FINAL — so no number changes).
+rows = [r for r in rows if not r.get("harness_error")]
 eps = {r["run_id"]: r for r in rows}
 
 # ---- merge labels: rules < judge < council ----

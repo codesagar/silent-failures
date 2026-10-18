@@ -26,6 +26,7 @@ import json
 import math
 import random
 import sys
+import threading
 from collections import Counter
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
@@ -80,12 +81,14 @@ def stage_judge():
     todo = [it for it in items if it["id"] not in ruled and it["id"] not in done]
     print(f"judge stage: {len(todo)} to classify with {PRIMARY}", flush=True)
     out = (OUT / "probe_stage1_judge.jsonl").open("a")
+    wlock = threading.Lock()
 
     def work(it):
         p = PROMPT.format(req=prompts[(it["suite"], it["task"])][:400], msg=it["answer"][:1400])
         lab = _ask(PRIMARY, p)
-        out.write(json.dumps({"id": it["id"], "label": lab, "source": f"judge:{PRIMARY}"}) + "\n")
-        out.flush()
+        with wlock:
+            out.write(json.dumps({"id": it["id"], "label": lab, "source": f"judge:{PRIMARY}"}) + "\n")
+            out.flush()
         return lab
 
     with ThreadPoolExecutor(6) as ex:
@@ -135,17 +138,23 @@ def stage_council():
     todo = [t for t in targets + audit if t not in done]
     print(f"council: {len(targets)} targets + {len(audit)} audit, {len(todo)} to run", flush=True)
     out = (OUT / "probe_stage2_council.jsonl").open("a")
+    clock = threading.Lock()
 
     def work(iid):
         it = items[iid]
         p = PROMPT.format(req=prompts[(it["suite"], it["task"])][:400], msg=it["answer"][:1400])
         votes = {j: _ask(j, p) for j in JUDGES}
         vals = [v for v in votes.values() if v in "SFA"]
-        maj = max(set(vals), key=vals.count) if vals else "?"
+        # 1/1/1 split -> A (latent-finding patch; zero occurrences in frozen data, verified)
+        if len(set(vals)) == 3:
+            maj = "A"
+        else:
+            maj = max(set(vals), key=vals.count) if vals else "?"
         unan = len(set(vals)) == 1 and len(vals) == 3
-        out.write(json.dumps({"id": iid, "votes": votes, "label": maj, "unanimous": unan,
-                              "source": "council", "is_audit": iid in set(audit)}) + "\n")
-        out.flush()
+        with clock:
+            out.write(json.dumps({"id": iid, "votes": votes, "label": maj, "unanimous": unan,
+                                  "source": "council", "is_audit": iid in set(audit)}) + "\n")
+            out.flush()
         return maj
 
     with ThreadPoolExecutor(6) as ex:

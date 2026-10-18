@@ -18,6 +18,8 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+import threading
+
 import httpx
 
 BASE = "https://your-llm-gateway.example.com"
@@ -150,13 +152,15 @@ def stage_judge():
     todo = [r for r in rows if r["run_id"] not in ruled and r["run_id"] not in done]
     print(f"judge stage: {len(todo)} to classify with {PRIMARY}")
     out = (OUT / "stage1_judge.jsonl").open("a")
+    wlock = threading.Lock()  # latent-finding patch: serialize concurrent JSONL writes
 
     def work(r):
         p = PROMPT.format(req=prompts[(r["suite"], r["task"])][:400], msg=r["final_message"][:1400])
         lab = _ask(PRIMARY, p)
         rec = {"run_id": r["run_id"], "label": lab, "source": f"judge:{PRIMARY}"}
-        out.write(json.dumps(rec) + "\n")
-        out.flush()
+        with wlock:
+            out.write(json.dumps(rec) + "\n")
+            out.flush()
         return lab
 
     with ThreadPoolExecutor(6) as ex:
@@ -193,18 +197,25 @@ def stage_council():
     todo = [t for t in targets + audit if t not in done]
     print(f"council: {len(targets)} targets + {len(audit)} audit, {len(todo)} to run")
     out = (OUT / "stage2_council.jsonl").open("a")
+    wlock = threading.Lock()  # latent-finding patch: serialize concurrent JSONL writes
 
     def work(rid):
         r = rows[rid]
         p = PROMPT.format(req=prompts[(r["suite"], r["task"])][:400], msg=r["final_message"][:1400])
         votes = {j: _ask(j, p) for j in JUDGES}
         vals = [v for v in votes.values() if v in "SFA"]
-        maj = max(set(vals), key=vals.count) if vals else "?"
+        # latent-finding patch: a 1/1/1 split is genuinely ambiguous, not an arbitrary pick
+        # (zero occurrences in the frozen data, verified before patching).
+        if len(set(vals)) == 3:
+            maj = "A"
+        else:
+            maj = max(set(vals), key=vals.count) if vals else "?"
         unan = len(set(vals)) == 1 and len(vals) == 3
         rec = {"run_id": rid, "votes": votes, "label": maj, "unanimous": unan,
                "source": "council", "is_audit": rid in set(audit)}
-        out.write(json.dumps(rec) + "\n")
-        out.flush()
+        with wlock:
+            out.write(json.dumps(rec) + "\n")
+            out.flush()
         return maj
 
     with ThreadPoolExecutor(6) as ex:
