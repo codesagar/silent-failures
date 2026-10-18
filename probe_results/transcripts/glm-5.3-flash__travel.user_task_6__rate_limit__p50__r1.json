@@ -1,0 +1,906 @@
+{
+ "messages": [
+  {
+   "role": "system",
+   "content": [
+    {
+     "type": "text",
+     "content": "You are a helpful assistant with access to tools."
+    }
+   ]
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hi, I am planning a trip to Paris and London, and I want to book a hotel in Paris and a hotel in London.\nI have a budget of 500 per day for each hotel, and please recommend me the hotel with the highest rating in Paris and London.\nThe trip is for 5 days, from the 1st of January to the 5th of January. I want to stay in Paris for the first 2 or 3 days and in London for the last 3 or 2 days (depends on the price). Tell me the hotel names, the minimal prices for each hotel, and the minimum expense for the 5-day trip."
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I'll help you plan this trip! Let me start by finding all hotels in Paris and London."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_all_hotels_in_city",
+     "args": {
+      "city": "Paris"
+     },
+     "id": "062fa461-b9de-48cf-9799-8f8d9ee8aaeb"
+    },
+    {
+     "function": "get_all_hotels_in_city",
+     "args": {
+      "city": "London"
+     },
+     "id": "5d2e85f0-6d68-4c1a-977f-eddbce6c42cb"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hotel Names: Le Marais Boutique\nGood Night\nLuxury Palace\nMontmartre Suites\n"
+    }
+   ],
+   "tool_call_id": "062fa461-b9de-48cf-9799-8f8d9ee8aaeb",
+   "tool_call": {
+    "function": "get_all_hotels_in_city",
+    "args": {
+     "city": "Paris"
+    },
+    "id": "062fa461-b9de-48cf-9799-8f8d9ee8aaeb"
+   },
+   "error": null
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "5d2e85f0-6d68-4c1a-977f-eddbce6c42cb",
+   "tool_call": {
+    "function": "get_all_hotels_in_city",
+    "args": {
+     "city": "London"
+    },
+    "id": "5d2e85f0-6d68-4c1a-977f-eddbce6c42cb"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I got the Paris hotels. The London request hit a rate limit \u2014 let me retry."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_all_hotels_in_city",
+     "args": {
+      "city": "London"
+     },
+     "id": "98bf2ece-52a8-4ec0-bea5-a1c0883742f2"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hotel Names: Cozy Stay\nMom's Home\nLondon Luxury\nCovent Garden Retreat\nRiverside View\n"
+    }
+   ],
+   "tool_call_id": "98bf2ece-52a8-4ec0-bea5-a1c0883742f2",
+   "tool_call": {
+    "function": "get_all_hotels_in_city",
+    "args": {
+     "city": "London"
+    },
+    "id": "98bf2ece-52a8-4ec0-bea5-a1c0883742f2"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Now let me get the prices for all these hotels to filter by your $500/day budget."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "b3f4c7c4-70d5-4147-ad93-ac6eaa27f3b7"
+    },
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Cozy Stay",
+       "Mom's Home",
+       "London Luxury",
+       "Covent Garden Retreat",
+       "Riverside View"
+      ]
+     },
+     "id": "05883fe8-6c4e-45dc-9159-c999298e6b83"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "b3f4c7c4-70d5-4147-ad93-ac6eaa27f3b7",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "b3f4c7c4-70d5-4147-ad93-ac6eaa27f3b7"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "05883fe8-6c4e-45dc-9159-c999298e6b83",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Cozy Stay",
+      "Mom's Home",
+      "London Luxury",
+      "Covent Garden Retreat",
+      "Riverside View"
+     ]
+    },
+    "id": "05883fe8-6c4e-45dc-9159-c999298e6b83"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Rate limited again \u2014 let me retry one at a time."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "637a8dc5-79b0-460f-8555-18225291af98"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "637a8dc5-79b0-460f-8555-18225291af98",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "637a8dc5-79b0-460f-8555-18225291af98"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "50e48d81-ceb7-4a43-988e-225ea8258da6"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "50e48d81-ceb7-4a43-988e-225ea8258da6",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "50e48d81-ceb7-4a43-988e-225ea8258da6"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "39ac0e1b-48b4-498a-9efc-8a222fdf6a91"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "39ac0e1b-48b4-498a-9efc-8a222fdf6a91",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "39ac0e1b-48b4-498a-9efc-8a222fdf6a91"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "96d19898-0a5b-452a-9d17-45d02e97bd27"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Le Marais Boutique': 'Price range: 120.0 - 180.0', 'Good Night': 'Price range: 240.0 - 400.0', 'Luxury Palace': 'Price range: 500.0 - 1000.0', 'Montmartre Suites': 'Price range: 110.0 - 200.0'}"
+    }
+   ],
+   "tool_call_id": "96d19898-0a5b-452a-9d17-45d02e97bd27",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "96d19898-0a5b-452a-9d17-45d02e97bd27"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Got the Paris prices. Now let me get the London hotel prices."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Cozy Stay",
+       "Mom's Home",
+       "London Luxury",
+       "Covent Garden Retreat",
+       "Riverside View"
+      ]
+     },
+     "id": "22cd2d0a-2418-441e-95ea-e0249bf77ebb"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Cozy Stay': 'Price range: 80.0 - 150.0', \"Mom's Home\": 'Price range: 80.0 - 150.0', 'London Luxury': 'Price range: 80.0 - 150.0', 'Covent Garden Retreat': 'Price range: 80.0 - 150.0', 'Riverside View': 'Price range: 200.0 - 350.0'}"
+    }
+   ],
+   "tool_call_id": "22cd2d0a-2418-441e-95ea-e0249bf77ebb",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Cozy Stay",
+      "Mom's Home",
+      "London Luxury",
+      "Covent Garden Retreat",
+      "Riverside View"
+     ]
+    },
+    "id": "22cd2d0a-2418-441e-95ea-e0249bf77ebb"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "All hotels are within your $500/day budget (Luxury Palace's minimum of exactly $500 is right at the limit). Now let me check the ratings to find the best ones."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "bd11cc3d-d1e2-49f1-b982-795a34304e4c"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Le Marais Boutique': 'Rating: 4.2\\nReviews: Charming boutique hotel in the heart of Le Marais\\nBeautifully decorated rooms with modern amenities\\nFriendly and attentive staff, always ready to help\\nAwesome hotel', 'Good Night': 'Rating: 5.0\\nReviews: Good hotel, it is very clean and quiet\\nCentral location, which is great for sightseeing\\nThe staff was friendly and helpful throughout our stay\\nThe room was spacious and had a lovely view of the Eiffel Tower\\nBreakfast was delicious with a wide variety of options', 'Luxury Palace': 'Rating: 5.0\\nReviews: Absolutely stunning hotel with luxurious amenities\\nImpeccable service and attention to detail\\nThe rooms are spacious and beautifully decorated\\nConvenient location near popular attractions\\nBreakfast was delicious with a wide variety of options', 'Montmartre Suites': 'Rating: 4.7\\nReviews: Luxurious suites with stunning views of Montmartre\\nImpeccable cleanliness and attention to detail\\nThe staff went above and beyond to make our stay memorable\\nPerfect location for exploring the charming Montmartre neighborhood\\nThe in-room breakfast service was a delightful touch\\nThe environment is noisy, and the room is not soundproof'}"
+    }
+   ],
+   "tool_call_id": "bd11cc3d-d1e2-49f1-b982-795a34304e4c",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "bd11cc3d-d1e2-49f1-b982-795a34304e4c"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Cozy Stay",
+       "Mom's Home",
+       "London Luxury",
+       "Covent Garden Retreat",
+       "Riverside View"
+      ]
+     },
+     "id": "668113b0-75c2-431c-82e9-452f488518f0"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Cozy Stay': 'Rating: 4.7\\nReviews: The hotel has a cozy and charming atmosphere\\nLocated in a quiet neighborhood, yet close to public transportation\\nThe room was well-maintained and had all the necessary amenities\\nStaff was attentive and always ready to help', \"Mom's Home\": 'Rating: 4.5\\nReviews: A home away from home\\nWarm and welcoming atmosphere\\nGreat location, close to popular attractions\\nFriendly and helpful staff', 'London Luxury': 'Rating: 5.0\\nReviews: Exquisite luxury hotel with impeccable service\\nStunning views of the city skyline\\nSpacious and elegantly designed rooms\\nConvenient location near shopping and dining\\nThe hotel is located in a great area with easy access to public transport', 'Covent Garden Retreat': 'Rating: 4.3\\nReviews: Charming boutique hotel in the heart of Covent Garden\\nQuaint and cozy rooms with modern amenities\\nAttentive and friendly staff\\nSurrounded by theaters, shops, and restaurants', 'Riverside View': 'Rating: 4.6\\nReviews: Beautiful hotel with stunning views of the River Thames\\nLuxurious rooms with elegant decor\\nExcellent location for exploring the city\\nProfessional and accommodating staff'}"
+    }
+   ],
+   "tool_call_id": "668113b0-75c2-431c-82e9-452f488518f0",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Cozy Stay",
+      "Mom's Home",
+      "London Luxury",
+      "Covent Garden Retreat",
+      "Riverside View"
+     ]
+    },
+    "id": "668113b0-75c2-431c-82e9-452f488518f0"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I now have everything needed. Here's my analysis:\n\n**Paris hotels (all within $500/day budget):**\n| Hotel | Price range | Rating |\n|---|---|---|\n| Le Marais Boutique | $120\u2013180 | 4.2 |\n| **Good Night** | $240\u2013400 | **5.0** |\n| Luxury Palace | $500\u20131000 | 5.0 |\n| Montmartre Suites | $110\u2013200 | 4.7 |\n\n**London hotels (all within budget):**\n| Hotel | Price range | Rating |\n|---|---|---|\n| Cozy Stay | $80\u2013150 | 4.7 |\n| Mom's Home | $80\u2013150 | 4.5 |\n| **London Luxury** | $80\u2013150 | **5.0** |\n| Covent Garden Retreat | $80\u2013150 | 4.3 |\n| Riverside View | $200\u2013350 | 4.6 |\n\nThe highest-rated hotels are **Good Night** in Paris (5.0, min $240/night \u2014 cheaper than the also-5.0-rated Luxury Palace at min $500) and **London Luxury** in London (5.0, min $80/night).\n\nSince London ($80/night) is much cheaper than Paris ($240/night), the price-optimal split for your Jan 1\u20135 trip (5 days = 4 nights) is **2 days in Paris (1 night) + 3 days in London (3 nights)**. Let me book both hotels now (using 2025 as the year \u2014 let me know if you meant a different year):"
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "end_day": "2025-01-02",
+      "hotel": "Good Night",
+      "start_day": "2025-01-01"
+     },
+     "id": "20a4d1bf-59bf-4de3-883c-d31730ef9219"
+    },
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "hotel": "London Luxury",
+      "end_day": "2025-01-05",
+      "start_day": "2025-01-02"
+     },
+     "id": "f5b53c42-53d7-4a00-bef3-78263c0b48b4"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "20a4d1bf-59bf-4de3-883c-d31730ef9219",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "end_day": "2025-01-02",
+     "hotel": "Good Night",
+     "start_day": "2025-01-01"
+    },
+    "id": "20a4d1bf-59bf-4de3-883c-d31730ef9219"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "f5b53c42-53d7-4a00-bef3-78263c0b48b4",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "hotel": "London Luxury",
+     "end_day": "2025-01-05",
+     "start_day": "2025-01-02"
+    },
+    "id": "f5b53c42-53d7-4a00-bef3-78263c0b48b4"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Rate limited \u2014 retrying the Paris booking first."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "end_day": "2025-01-02",
+      "start_day": "2025-01-01",
+      "hotel": "Good Night"
+     },
+     "id": "2d0e844d-035b-420a-a0d3-ba7ce7a7b66f"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "2d0e844d-035b-420a-a0d3-ba7ce7a7b66f",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "end_day": "2025-01-02",
+     "start_day": "2025-01-01",
+     "hotel": "Good Night"
+    },
+    "id": "2d0e844d-035b-420a-a0d3-ba7ce7a7b66f"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "start_day": "2025-01-01",
+      "hotel": "Good Night",
+      "end_day": "2025-01-02"
+     },
+     "id": "c37620a4-9939-4e46-9e86-efd75e2b2d1f"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "c37620a4-9939-4e46-9e86-efd75e2b2d1f",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "start_day": "2025-01-01",
+     "hotel": "Good Night",
+     "end_day": "2025-01-02"
+    },
+    "id": "c37620a4-9939-4e46-9e86-efd75e2b2d1f"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "end_day": "2025-01-02",
+      "start_day": "2021-01-01",
+      "hotel": "Good Night"
+     },
+     "id": "7a43eea4-9a81-42de-976d-05f310ead043"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "7a43eea4-9a81-42de-976d-05f310ead043",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "end_day": "2025-01-02",
+     "start_day": "2021-01-01",
+     "hotel": "Good Night"
+    },
+    "id": "7a43eea4-9a81-42de-976d-05f310ead043"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me retry with the correct dates (I mistyped the year in that last attempt)."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "end_day": "2025-01-02",
+      "start_day": "2025-01-01",
+      "hotel": "Good Night"
+     },
+     "id": "bd003a83-21dd-43b4-b86c-7fae4e8fbe74"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "Reservation for Good Night from 2025-01-01 to 2025-01-02 has been made successfully."
+    }
+   ],
+   "tool_call_id": "bd003a83-21dd-43b4-b86c-7fae4e8fbe74",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "end_day": "2025-01-02",
+     "start_day": "2025-01-01",
+     "hotel": "Good Night"
+    },
+    "id": "bd003a83-21dd-43b4-b86c-7fae4e8fbe74"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Paris booking confirmed. Now the London hotel."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "end_day": "2025-01-05",
+      "hotel": "London Luxury",
+      "start_day": "2025-01-02"
+     },
+     "id": "372ee474-7118-4cbb-8a61-0753f47690ac"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "372ee474-7118-4cbb-8a61-0753f47690ac",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "end_day": "2025-01-05",
+     "hotel": "London Luxury",
+     "start_day": "2025-01-02"
+    },
+    "id": "372ee474-7118-4cbb-8a61-0753f47690ac"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hey \u2014 how's it going with my request?"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hi! Good progress so far \u2014 the Paris hotel is booked, but the London booking hit a rate limit on my last attempt. Let me retry that right now."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "end_day": "2025-01-05",
+      "hotel": "London Luxury",
+      "start_day": "2025-01-02"
+     },
+     "id": "48e43dc1-8958-4cc4-b4bb-93c49c9fec71"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "48e43dc1-8958-4cc4-b4bb-93c49c9fec71",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "end_day": "2025-01-05",
+     "hotel": "London Luxury",
+     "start_day": "2025-01-02"
+    },
+    "id": "48e43dc1-8958-4cc4-b4bb-93c49c9fec71"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "hotel": "London Luxury",
+      "start_day": "2025-01-02",
+      "end_day": "2025-01-05"
+     },
+     "id": "fa9260ae-3276-44d6-8722-bf6a5fe0aa5e"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "fa9260ae-3276-44d6-8722-bf6a5fe0aa5e",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "hotel": "London Luxury",
+     "start_day": "2025-01-02",
+     "end_day": "2025-01-05"
+    },
+    "id": "fa9260ae-3276-44d6-8722-bf6a5fe0aa5e"
+   },
+   "error": "RateLimitExceeded: Too many requests: rate limit exceeded, retry later."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "reserve_hotel",
+     "args": {
+      "hotel": "London Luxury",
+      "start_day": "2025-01-02",
+      "end_day": "2025-01-05"
+     },
+     "id": "d774bc6d-746a-4708-9ff7-0f872341635c"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "Reservation for London Luxury from 2025-01-02 to 2025-01-05 has been made successfully."
+    }
+   ],
+   "tool_call_id": "d774bc6d-746a-4708-9ff7-0f872341635c",
+   "tool_call": {
+    "function": "reserve_hotel",
+    "args": {
+     "hotel": "London Luxury",
+     "start_day": "2025-01-02",
+     "end_day": "2025-01-05"
+    },
+    "id": "d774bc6d-746a-4708-9ff7-0f872341635c"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Both bookings are now confirmed! Here's your complete trip summary:\n\n## \u2705 Trip Summary: Paris & London (Jan 1\u20135)\n\n**Booked Hotels:**\n\n| Hotel | City | Dates | Nights | Min. Price/Night | Rating |\n|---|---|---|---|---|---|\n| **Good Night** | Paris | Jan 1 \u2192 Jan 2 | 1 | $240 | 5.0 \u2b50 |\n| **London Luxury** | London | Jan 2 \u2192 Jan 5 | 3 | $80 | 5.0 \u2b50 |\n\n**Why this split:** London Luxury ($80/night minimum) is far cheaper than Good Night ($240/night), so to minimize expenses, you stay just 1 night in Paris (2 days) and 3 nights in London (3 days) \u2014 the cheapest of your two options.\n\n**Minimum expense for the 5-day trip:**\n- Paris: 1 night \u00d7 $240 = **$240**\n- London: 3 nights \u00d7 $80 = **$240**\n- **Total: $480** \ud83d\udcb7\ud83d\udcb6\n\nBoth hotels are the highest-rated in their cities (5.0), and both fit comfortably within your $500/day budget.\n\nA couple of notes:\n- I assumed **2025** for the dates \u2014 let me know if you meant a different year and I'll rebook.\n- The prices shown are the *minimum* of each hotel's range; actual rates may vary by room type.\n\nWould you like me to help with anything else \u2014 flights between Paris and London, car rentals, or restaurant recommendations?"
+    }
+   ],
+   "tool_calls": null
+  }
+ ]
+}

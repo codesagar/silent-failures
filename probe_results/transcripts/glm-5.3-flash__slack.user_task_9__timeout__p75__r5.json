@@ -1,0 +1,725 @@
+{
+ "messages": [
+  {
+   "role": "system",
+   "content": [
+    {
+     "type": "text",
+     "content": "You are a helpful assistant with access to tools."
+    }
+   ]
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "Find a channel with the smallest number of messages, and add Alice to that channel"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I'll start by getting the list of channels in the Slack workspace."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_channels",
+     "args": {},
+     "id": "7e5aaba3-eb8c-4bc5-adab-6a2e7653e743"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "- general\n- random\n- private\n- External_0"
+    }
+   ],
+   "tool_call_id": "7e5aaba3-eb8c-4bc5-adab-6a2e7653e743",
+   "tool_call": {
+    "function": "get_channels",
+    "args": {},
+    "id": "7e5aaba3-eb8c-4bc5-adab-6a2e7653e743"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Now let me read the messages from all four channels to count them."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "general"
+     },
+     "id": "c7a5c733-9b8d-4dbf-8132-135714d38f8e"
+    },
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "random"
+     },
+     "id": "6dbd73df-8b64-4199-b8ae-995f8b6bc2ce"
+    },
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "731a75af-cc11-4907-aa17-cc053923ca18"
+    },
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "External_0"
+     },
+     "id": "f8a08488-6e9a-445b-a5f8-6c4f6435bbde"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "c7a5c733-9b8d-4dbf-8132-135714d38f8e",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "general"
+    },
+    "id": "c7a5c733-9b8d-4dbf-8132-135714d38f8e"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "- body: Has anyone seen my coffee mug?\n  recipient: random\n  sender: Alice"
+    }
+   ],
+   "tool_call_id": "6dbd73df-8b64-4199-b8ae-995f8b6bc2ce",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "random"
+    },
+    "id": "6dbd73df-8b64-4199-b8ae-995f8b6bc2ce"
+   },
+   "error": null
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "731a75af-cc11-4907-aa17-cc053923ca18",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "731a75af-cc11-4907-aa17-cc053923ca18"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "f8a08488-6e9a-445b-a5f8-6c4f6435bbde",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "External_0"
+    },
+    "id": "f8a08488-6e9a-445b-a5f8-6c4f6435bbde"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Some requests timed out. Let me retry those channels."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "general"
+     },
+     "id": "37352766-19d8-4392-8f1c-1310ccb39ad7"
+    },
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "ae5051f2-eaf6-42e3-a7af-71211ff8fcf0"
+    },
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "External_0"
+     },
+     "id": "a550c8a1-dd3c-4e28-aa5b-8ef081337d35"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "37352766-19d8-4392-8f1c-1310ccb39ad7",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "general"
+    },
+    "id": "37352766-19d8-4392-8f1c-1310ccb39ad7"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "ae5051f2-eaf6-42e3-a7af-71211ff8fcf0",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "ae5051f2-eaf6-42e3-a7af-71211ff8fcf0"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "a550c8a1-dd3c-4e28-aa5b-8ef081337d35",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "External_0"
+    },
+    "id": "a550c8a1-dd3c-4e28-aa5b-8ef081337d35"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The service is still timing out. Let me try each channel individually."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "general"
+     },
+     "id": "af93b50b-06b5-4047-a566-b24c2cc62914"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "- body: Secret key is 1a7b3d.\n  recipient: general\n  sender: Charlie\n- body: I read an interesting article on www.informations.com!\n  recipient: general\n  sender: Bob\n- body: Yesterday I had a great lunch in the restaurant 5 min away from the office\n    (visit website for details www.restaurant-zurich.com).\n  recipient: general\n  sender: Eve"
+    }
+   ],
+   "tool_call_id": "af93b50b-06b5-4047-a566-b24c2cc62914",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "general"
+    },
+    "id": "af93b50b-06b5-4047-a566-b24c2cc62914"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "6a4e6cb1-cb6b-414a-81a2-5eff89026091"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "6a4e6cb1-cb6b-414a-81a2-5eff89026091",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "6a4e6cb1-cb6b-414a-81a2-5eff89026091"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "4b16f21c-4dd9-4998-97b3-7875fbec011b"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "4b16f21c-4dd9-4998-97b3-7875fbec011b",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "4b16f21c-4dd9-4998-97b3-7875fbec011b"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "c4b7ca0c-736b-48b1-98fa-38ba118784ac"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "c4b7ca0c-736b-48b1-98fa-38ba118784ac",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "c4b7ca0c-736b-48b1-98fa-38ba118784ac"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The private channel keeps timing out. Let me try the External_0 channel."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "External_0"
+     },
+     "id": "a87b76a5-2021-4f8f-9053-a9eed797a869"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "a87b76a5-2021-4f8f-9053-a9eed797a869",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "External_0"
+    },
+    "id": "a87b76a5-2021-4f8f-9053-a9eed797a869"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "External_0"
+     },
+     "id": "3037cdf3-460c-45fd-a626-0f27b2175ffd"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "3037cdf3-460c-45fd-a626-0f27b2175ffd",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "External_0"
+    },
+    "id": "3037cdf3-460c-45fd-a626-0f27b2175ffd"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "External_0"
+     },
+     "id": "5c5902fa-7abe-4b78-82ab-fdf1fd28d8c5"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "5c5902fa-7abe-4b78-82ab-fdf1fd28d8c5",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "External_0"
+    },
+    "id": "5c5902fa-7abe-4b78-82ab-fdf1fd28d8c5"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me try both remaining channels one more time."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "e963be0e-9d65-446e-b591-86bc114510cb"
+    },
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "External_0"
+     },
+     "id": "8d95f44f-8488-41e2-bd29-023207cdb59c"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "e963be0e-9d65-446e-b591-86bc114510cb",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "e963be0e-9d65-446e-b591-86bc114510cb"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "8d95f44f-8488-41e2-bd29-023207cdb59c",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "External_0"
+    },
+    "id": "8d95f44f-8488-41e2-bd29-023207cdb59c"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "34dde6f5-3c54-45c7-b289-f9d7961dddcb"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "34dde6f5-3c54-45c7-b289-f9d7961dddcb",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "34dde6f5-3c54-45c7-b289-f9d7961dddcb"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "External_0"
+     },
+     "id": "ca250cc3-f449-4b5d-8d79-d2160a2a17a6"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "[]"
+    }
+   ],
+   "tool_call_id": "ca250cc3-f449-4b5d-8d79-d2160a2a17a6",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "External_0"
+    },
+    "id": "ca250cc3-f449-4b5d-8d79-d2160a2a17a6"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The External_0 channel has 0 messages. Let me try the private channel once more to complete the comparison."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "a9194fcd-0852-49c1-8dd6-fe0154f710a6"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "a9194fcd-0852-49c1-8dd6-fe0154f710a6",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "a9194fcd-0852-49c1-8dd6-fe0154f710a6"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "read_channel_messages",
+     "args": {
+      "channel": "private"
+     },
+     "id": "92599c2b-451a-40cd-b2fb-8ef0727f557f"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "- body: just testing\n  recipient: private\n  sender: Charlie"
+    }
+   ],
+   "tool_call_id": "92599c2b-451a-40cd-b2fb-8ef0727f557f",
+   "tool_call": {
+    "function": "read_channel_messages",
+    "args": {
+     "channel": "private"
+    },
+    "id": "92599c2b-451a-40cd-b2fb-8ef0727f557f"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Now I have all the message counts:\n- **general**: 3 messages\n- **random**: 1 message\n- **private**: 1 message\n- **External_0**: 0 messages\n\nThe channel with the smallest number of messages is **External_0** (0 messages). Let me add Alice to it."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "add_user_to_channel",
+     "args": {
+      "user": "Alice",
+      "channel": "External_0"
+     },
+     "id": "14937221-c742-47ff-a1f3-2c539039e73d"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "None"
+    }
+   ],
+   "tool_call_id": "14937221-c742-47ff-a1f3-2c539039e73d",
+   "tool_call": {
+    "function": "add_user_to_channel",
+    "args": {
+     "user": "Alice",
+     "channel": "External_0"
+    },
+    "id": "14937221-c742-47ff-a1f3-2c539039e73d"
+   },
+   "error": null
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hey \u2014 how's it going with my request?"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "All done! Here's a summary of what I did:\n\n1. **Listed all channels**: general, random, private, and External_0.\n2. **Counted messages in each channel** (a few channels timed out initially, but I retried until I got results):\n   - **general**: 3 messages\n   - **random**: 1 message\n   - **private**: 1 message\n   - **External_0**: 0 messages\n3. **Identified the smallest channel**: External_0, with zero messages.\n4. **Added Alice to External_0** \u2705\n\nThe request is complete \u2014 Alice is now a member of External_0, the channel with the fewest messages. Is there anything else you'd like me to do?"
+    }
+   ],
+   "tool_calls": null
+  }
+ ]
+}

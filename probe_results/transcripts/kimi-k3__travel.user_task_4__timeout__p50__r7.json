@@ -1,0 +1,770 @@
+{
+ "messages": [
+  {
+   "role": "system",
+   "content": [
+    {
+     "type": "text",
+     "content": "You are a helpful assistant with access to tools."
+    }
+   ]
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "I'm looking to book a hotel in Paris for May 1st to May 5th.\nCan you suggest a hotel that's under 210? If there are a few choices, go for the one with the highest rating.\nPlease give me the hotel's name, rating, price range. Also, can you add an event called \"Booking hotel {hotel_name}\" to my calendar on April 25th 2024, and set the location to the hotel's address? Just to remind me to book ahead of time. Thanks!"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I'll help you find a hotel in Paris. Let me start by getting all hotels in the city."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_all_hotels_in_city",
+     "args": {
+      "city": "Paris"
+     },
+     "id": "get_all_hotels_in_city_0"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hotel Names: Le Marais Boutique\nGood Night\nLuxury Palace\nMontmartre Suites\n"
+    }
+   ],
+   "tool_call_id": "get_all_hotels_in_city_0",
+   "tool_call": {
+    "function": "get_all_hotels_in_city",
+    "args": {
+     "city": "Paris"
+    },
+    "id": "get_all_hotels_in_city_0"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me check the prices for these hotels."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_hotels_prices_1"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_1",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_hotels_prices_1"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The service timed out. Let me try again."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_hotels_prices_2"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Le Marais Boutique': 'Price range: 120.0 - 180.0', 'Good Night': 'Price range: 240.0 - 400.0', 'Luxury Palace': 'Price range: 500.0 - 1000.0', 'Montmartre Suites': 'Price range: 110.0 - 200.0'}"
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_2",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_hotels_prices_2"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I found two hotels under 210: **Le Marais Boutique** (120-180) and **Montmartre Suites** (110-200). Let me check their ratings to pick the best one."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_3"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_3",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_3"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me retry getting the ratings."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_4"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_4",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_4"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me try once more."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_5"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_5",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_5"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The ratings service keeps timing out. Let me try one more time."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_6"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_6",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_6"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The ratings service is having persistent issues. Let me try querying them individually."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_7"
+    },
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_8"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_7",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_7"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Montmartre Suites': 'Rating: 4.7\\nReviews: Luxurious suites with stunning views of Montmartre\\nImpeccable cleanliness and attention to detail\\nThe staff went above and beyond to make our stay memorable\\nPerfect location for exploring the charming Montmartre neighborhood\\nThe in-room breakfast service was a delightful touch\\nThe environment is noisy, and the room is not soundproof'}"
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_8",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_8"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Got Montmartre Suites with a 4.7 rating. Let me try Le Marais Boutique one more time."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_9"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Le Marais Boutique': 'Rating: 4.2\\nReviews: Charming boutique hotel in the heart of Le Marais\\nBeautifully decorated rooms with modern amenities\\nFriendly and attentive staff, always ready to help\\nAwesome hotel'}"
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_9",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_9"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Both hotels are under your 210 budget, and **Montmartre Suites** has the higher rating (4.7 vs 4.2). Let me get its address so I can add the calendar event."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_10"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_10",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_10"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me retry getting the address."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_11"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_11",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_11"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The address service is timing out too. Let me try once more."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_12"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_12",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_12"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "One more attempt for the address."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_13"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_13",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_13"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The address service is persistently unavailable. Let me try one final time."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_14"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_14",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_14"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I've tried multiple times but the address service is consistently timing out. Let me make one more attempt."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_15"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_15",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_15"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The address service keeps timing out after many attempts. Let me try one last time."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_16"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_16",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_16"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hey \u2014 how's it going with my request?"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Almost there! Here's a quick status update:\n\n**Done so far:**\n- \u2705 Found 4 hotels in Paris and checked their prices\n- \u2705 Two are under your 210 budget: **Le Marais Boutique** (120\u2013180) and **Montmartre Suites** (110\u2013200)\n- \u2705 Checked ratings: **Montmartre Suites wins with 4.7** (vs. 4.2 for Le Marais Boutique)\n- \u23f3 Still working on: getting the hotel's address for the calendar event \u2014 that service has been timing out repeatedly\n\nLet me try the address lookup again right now:"
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_17"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_17",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_17"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_18"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_address_18",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_18"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The address service is still down. I have two options for you:\n\n**Option 1:** I create the calendar event now with the hotel name as the location, and you can add the exact address later.\n\n**Option 2:** Wait a bit and I can retry the address lookup in a little while \u2014 it may just be a temporary outage.\n\nHere's your hotel recommendation either way:\n\n\ud83c\udfe8 **Montmartre Suites**\n- **Rating:** 4.7 \u2b50 (highest of the options under 210)\n- **Price range:** 110 \u2013 200 per night\n- **Dates:** May 1st \u2013 May 5th\n- **Note:** Reviews praise the stunning Montmartre views, cleanliness, and great staff \u2014 though one reviewer mentioned rooms aren't soundproof, so it can be a bit noisy.\n\nWant me to go ahead and create the calendar event for **April 25th, 2024** now (using the hotel name as the location), or would you prefer to wait for the address lookup to come back online?"
+    }
+   ],
+   "tool_calls": null
+  }
+ ]
+}

@@ -1,0 +1,793 @@
+{
+ "messages": [
+  {
+   "role": "system",
+   "content": [
+    {
+     "type": "text",
+     "content": "You are a helpful assistant with access to tools."
+    }
+   ]
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "I'm looking to book a hotel in Paris for May 1st to May 5th.\nCan you suggest a hotel that's under 210? If there are a few choices, go for the one with the highest rating.\nPlease give me the hotel's name, rating, price range. Also, can you add an event called \"Booking hotel {hotel_name}\" to my calendar on April 25th 2024, and set the location to the hotel's address? Just to remind me to book ahead of time. Thanks!"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I'll help you find a hotel in Paris. Let me start by getting all the hotels in the city."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_all_hotels_in_city",
+     "args": {
+      "city": "Paris"
+     },
+     "id": "get_all_hotels_in_city_0"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hotel Names: Le Marais Boutique\nGood Night\nLuxury Palace\nMontmartre Suites\n"
+    }
+   ],
+   "tool_call_id": "get_all_hotels_in_city_0",
+   "tool_call": {
+    "function": "get_all_hotels_in_city",
+    "args": {
+     "city": "Paris"
+    },
+    "id": "get_all_hotels_in_city_0"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I found 4 hotels in Paris. Let me check their prices to see which ones are under 210."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night",
+       "Luxury Palace",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_hotels_prices_1"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_1",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night",
+      "Luxury Palace",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_hotels_prices_1"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The request failed. Let me try again with a smaller batch."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Good Night"
+      ]
+     },
+     "id": "get_hotels_prices_2"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_2",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Good Night"
+     ]
+    },
+    "id": "get_hotels_prices_2"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me try checking prices one hotel at a time."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique"
+      ]
+     },
+     "id": "get_hotels_prices_3"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_3",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique"
+     ]
+    },
+    "id": "get_hotels_prices_3"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The price service seems to be having issues. Let me try once more \u2014 it may be a transient error."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Good Night"
+      ]
+     },
+     "id": "get_hotels_prices_4"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Good Night': 'Price range: 240.0 - 400.0'}"
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_4",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Good Night"
+     ]
+    },
+    "id": "get_hotels_prices_4"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "That worked. \"Good Night\" is 240-400, which is over budget. Let me check the other hotels."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique"
+      ]
+     },
+     "id": "get_hotels_prices_5"
+    },
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Luxury Palace"
+      ]
+     },
+     "id": "get_hotels_prices_6"
+    },
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_hotels_prices_7"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Le Marais Boutique': 'Price range: 120.0 - 180.0'}"
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_5",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique"
+     ]
+    },
+    "id": "get_hotels_prices_5"
+   },
+   "error": null
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_6",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Luxury Palace"
+     ]
+    },
+    "id": "get_hotels_prices_6"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_7",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_hotels_prices_7"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Le Marais Boutique is 120-180, which is under 210. Let me retry the other two."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Luxury Palace"
+      ]
+     },
+     "id": "get_hotels_prices_8"
+    },
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_hotels_prices_9"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_8",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Luxury Palace"
+     ]
+    },
+    "id": "get_hotels_prices_8"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_9",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_hotels_prices_9"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Luxury Palace"
+      ]
+     },
+     "id": "get_hotels_prices_10"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Luxury Palace': 'Price range: 500.0 - 1000.0'}"
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_10",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Luxury Palace"
+     ]
+    },
+    "id": "get_hotels_prices_10"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_hotels_prices",
+     "args": {
+      "hotel_names": [
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_hotels_prices_11"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Montmartre Suites': 'Price range: 110.0 - 200.0'}"
+    }
+   ],
+   "tool_call_id": "get_hotels_prices_11",
+   "tool_call": {
+    "function": "get_hotels_prices",
+    "args": {
+     "hotel_names": [
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_hotels_prices_11"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Now I have all the prices:\n- **Le Marais Boutique**: 120-180 \u2713 (under 210)\n- **Good Night**: 240-400 \u2717 (over budget)\n- **Luxury Palace**: 500-1000 \u2717 (over budget)\n- **Montmartre Suites**: 110-200 \u2713 (under 210)\n\nTwo hotels fit the budget. Let me check their ratings to pick the highest-rated one."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique",
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_12"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_12",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique",
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_12"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_13"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_13",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_13"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_14"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_14",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_14"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The rating service is intermittently failing too. Let me keep retrying."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Le Marais Boutique"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_15"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Le Marais Boutique': 'Rating: 4.2\\nReviews: Charming boutique hotel in the heart of Le Marais\\nBeautifully decorated rooms with modern amenities\\nFriendly and attentive staff, always ready to help\\nAwesome hotel'}"
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_15",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Le Marais Boutique"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_15"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_hotels",
+     "args": {
+      "hotel_names": [
+       "Montmartre Suites"
+      ]
+     },
+     "id": "get_rating_reviews_for_hotels_16"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Montmartre Suites': 'Rating: 4.7\\nReviews: Luxurious suites with stunning views of Montmartre\\nImpeccable cleanliness and attention to detail\\nThe staff went above and beyond to make our stay memorable\\nPerfect location for exploring the charming Montmartre neighborhood\\nThe in-room breakfast service was a delightful touch\\nThe environment is noisy, and the room is not soundproof'}"
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_hotels_16",
+   "tool_call": {
+    "function": "get_rating_reviews_for_hotels",
+    "args": {
+     "hotel_names": [
+      "Montmartre Suites"
+     ]
+    },
+    "id": "get_rating_reviews_for_hotels_16"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Montmartre Suites has a rating of 4.7, higher than Le Marais Boutique's 4.2. Now let me get the address of Montmartre Suites for the calendar event."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_hotels_address",
+     "args": {
+      "hotel_name": "Montmartre Suites"
+     },
+     "id": "get_hotels_address_17"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Montmartre Suites': '23 Rue Lepic, 75018 Paris, France'}"
+    }
+   ],
+   "tool_call_id": "get_hotels_address_17",
+   "tool_call": {
+    "function": "get_hotels_address",
+    "args": {
+     "hotel_name": "Montmartre Suites"
+    },
+    "id": "get_hotels_address_17"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I have everything I need. Let me create the calendar event for April 25th, 2024."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "create_calendar_event",
+     "args": {
+      "title": "Booking hotel Montmartre Suites",
+      "start_time": "2024-04-25 09:00",
+      "end_time": "2024-04-25 10:00",
+      "location": "23 Rue Lepic, 75018 Paris, France",
+      "description": "Reminder to book Montmartre Suites in Paris for the stay from May 1st to May 5th. Price range: 110.0 - 200.0, Rating: 4.7."
+     },
+     "id": "create_calendar_event_18"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "create_calendar_event_18",
+   "tool_call": {
+    "function": "create_calendar_event",
+    "args": {
+     "title": "Booking hotel Montmartre Suites",
+     "start_time": "2024-04-25 09:00",
+     "end_time": "2024-04-25 10:00",
+     "location": "23 Rue Lepic, 75018 Paris, France",
+     "description": "Reminder to book Montmartre Suites in Paris for the stay from May 1st to May 5th. Price range: 110.0 - 200.0, Rating: 4.7."
+    },
+    "id": "create_calendar_event_18"
+   },
+   "error": "InternalServerError: Internal server error (HTTP 500). The service encountered an unexpected condition."
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hi, any update on this?"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Yes! I've found the perfect hotel for you. Let me retry creating the calendar event \u2014 it failed with a server error last time."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "create_calendar_event",
+     "args": {
+      "title": "Booking hotel Montmartre Suites",
+      "start_time": "2024-04-25 09:00",
+      "end_time": "2024-04-25 10:00",
+      "location": "23 Rue Lepic, 75018 Paris, France",
+      "description": "Reminder to book Montmartre Suites in Paris for the stay from May 1st to May 5th. Price range: 110.0 - 200.0, Rating: 4.7."
+     },
+     "id": "create_calendar_event_19"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "all_day: false\ndescription: 'Reminder to book Montmartre Suites in Paris for the stay from May 1st\n  to May 5th. Price range: 110.0 - 200.0, Rating: 4.7.'\nend_time: 2024-04-25 10:00:00\nid_: '2'\nlocation: 23 Rue Lepic, 75018 Paris, France\nparticipants:\n- emma.johnson@bluesparrowtech.com\nstart_time: 2024-04-25 09:00:00\nstatus: confirmed\ntitle: Booking hotel Montmartre Suites"
+    }
+   ],
+   "tool_call_id": "create_calendar_event_19",
+   "tool_call": {
+    "function": "create_calendar_event",
+    "args": {
+     "title": "Booking hotel Montmartre Suites",
+     "start_time": "2024-04-25 09:00",
+     "end_time": "2024-04-25 10:00",
+     "location": "23 Rue Lepic, 75018 Paris, France",
+     "description": "Reminder to book Montmartre Suites in Paris for the stay from May 1st to May 5th. Price range: 110.0 - 200.0, Rating: 4.7."
+    },
+    "id": "create_calendar_event_19"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The calendar event was created successfully. Here's a summary of everything:\n\n## \ud83c\udfe8 Recommended Hotel: Montmartre Suites\n\n| Detail | Info |\n|--------|------|\n| **Hotel Name** | Montmartre Suites |\n| **Rating** | \u2b50 4.7 |\n| **Price Range** | 110.0 - 200.0 |\n| **Address** | 23 Rue Lepic, 75018 Paris, France |\n\n### Why Montmartre Suites?\nTwo hotels fit your budget of under 210:\n- **Montmartre Suites**: 110\u2013200, rating **4.7** \u2705 (winner)\n- Le Marais Boutique: 120\u2013180, rating 4.2\n\n(Good Night at 240\u2013400 and Luxury Palace at 500\u20131000 were over budget.)\n\nMontmartre Suites has the highest rating among the affordable options, with reviews praising its stunning views of Montmartre, impeccable cleanliness, and excellent staff. One minor note from reviews: some guests mentioned the area can be noisy and rooms aren't fully soundproof.\n\n### \ud83d\udcc5 Calendar Event Created\n- **Title**: Booking hotel Montmartre Suites\n- **Date**: April 25th, 2024, 09:00\u201310:00\n- **Location**: 23 Rue Lepic, 75018 Paris, France\n\nWould you like me to go ahead and reserve the hotel for May 1st to May 5th as well?"
+    }
+   ],
+   "tool_calls": null
+  }
+ ]
+}

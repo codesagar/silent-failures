@@ -1,0 +1,782 @@
+{
+ "messages": [
+  {
+   "role": "system",
+   "content": [
+    {
+     "type": "text",
+     "content": "You are a helpful assistant with access to tools."
+    }
+   ]
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "My wife and I are planning to visit London for 4 days. Please help us book a flight from Paris to London, and recommend us the cheapest flight.\nWe also want to rent a car in London, can you find me the car rental company with the best rating?\nThen tell me the airline name, the price for the flight for 2 people, the flight number, the car rental company name, rating, the price for a car for 4 days."
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I'll help you with your London trip! Let me first look up flights from Paris to London and car rental companies in London."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_flight_information",
+     "args": {
+      "departure_city": "Paris",
+      "arrival_city": "London"
+     },
+     "id": "get_flight_information_0"
+    },
+    {
+     "function": "get_all_car_rental_companies_in_city",
+     "args": {
+      "city": "London"
+     },
+     "id": "get_all_car_rental_companies_in_city_1"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_flight_information_0",
+   "tool_call": {
+    "function": "get_flight_information",
+    "args": {
+     "departure_city": "Paris",
+     "arrival_city": "London"
+    },
+    "id": "get_flight_information_0"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "Car Rental Companies in London: Green Motion\nNew Car Rental\n"
+    }
+   ],
+   "tool_call_id": "get_all_car_rental_companies_in_city_1",
+   "tool_call": {
+    "function": "get_all_car_rental_companies_in_city",
+    "args": {
+     "city": "London"
+    },
+    "id": "get_all_car_rental_companies_in_city_1"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I found the car rental companies. Now let me get their ratings and prices, and retry the flight search."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "Green Motion",
+       "New Car Rental"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_2"
+    },
+    {
+     "function": "get_car_price_per_day",
+     "args": {
+      "company_name": [
+       "Green Motion",
+       "New Car Rental"
+      ]
+     },
+     "id": "get_car_price_per_day_3"
+    },
+    {
+     "function": "get_flight_information",
+     "args": {
+      "departure_city": "Paris",
+      "arrival_city": "London"
+     },
+     "id": "get_flight_information_4"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_2",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "Green Motion",
+      "New Car Rental"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_2"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_car_price_per_day_3",
+   "tool_call": {
+    "function": "get_car_price_per_day",
+    "args": {
+     "company_name": [
+      "Green Motion",
+      "New Car Rental"
+     ]
+    },
+    "id": "get_car_price_per_day_3"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_flight_information_4",
+   "tool_call": {
+    "function": "get_flight_information",
+    "args": {
+     "departure_city": "Paris",
+     "arrival_city": "London"
+    },
+    "id": "get_flight_information_4"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "The services timed out. Let me retry the requests."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_flight_information",
+     "args": {
+      "departure_city": "Paris",
+      "arrival_city": "London"
+     },
+     "id": "get_flight_information_5"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "Airline: British Airways, Flight Number: BA123, Departure Time: 2024-05-16 09:00:00, Arrival Time: 2024-05-16 11:00:00, Price: 200.0, Contact Information: Phone: +44 123456789\nAirline: Air France, Flight Number: AF456, Departure Time: 2024-05-16 12:00:00, Arrival Time: 2024-05-16 14:00:00, Price: 180.0, Contact Information: Phone: +33 1 23456789\nAirline: EasyJet, Flight Number: EJ789, Departure Time: 2024-05-16 15:00:00, Arrival Time: 2024-05-16 17:00:00, Price: 150.0, Contact Information: Phone: +44 987654321"
+    }
+   ],
+   "tool_call_id": "get_flight_information_5",
+   "tool_call": {
+    "function": "get_flight_information",
+    "args": {
+     "departure_city": "Paris",
+     "arrival_city": "London"
+    },
+    "id": "get_flight_information_5"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I got the flight information. Now let me retry getting the car rental ratings and prices."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "Green Motion",
+       "New Car Rental"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_6"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_6",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "Green Motion",
+      "New Car Rental"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_6"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "Green Motion"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_7"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_7",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "Green Motion"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_7"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "New Car Rental"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_8"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'New Car Rental': 'Rating: 4.5\\nReviews: Wide range of vehicles to choose from\\nCompetitive prices\\nEfficient and friendly service'}"
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_8",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "New Car Rental"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_8"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I got the rating for New Car Rental. Let me retry Green Motion and get the prices."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "Green Motion"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_9"
+    },
+    {
+     "function": "get_car_price_per_day",
+     "args": {
+      "company_name": [
+       "New Car Rental"
+      ]
+     },
+     "id": "get_car_price_per_day_10"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_9",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "Green Motion"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_9"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_car_price_per_day_10",
+   "tool_call": {
+    "function": "get_car_price_per_day",
+    "args": {
+     "company_name": [
+      "New Car Rental"
+     ]
+    },
+    "id": "get_car_price_per_day_10"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "Green Motion"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_11"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_11",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "Green Motion"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_11"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "Green Motion"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_12"
+    },
+    {
+     "function": "get_car_price_per_day",
+     "args": {
+      "company_name": [
+       "New Car Rental"
+      ]
+     },
+     "id": "get_car_price_per_day_13"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_12",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "Green Motion"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_12"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_car_price_per_day_13",
+   "tool_call": {
+    "function": "get_car_price_per_day",
+    "args": {
+     "company_name": [
+      "New Car Rental"
+     ]
+    },
+    "id": "get_car_price_per_day_13"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me continue retrying these requests."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "Green Motion"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_14"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_14",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "Green Motion"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_14"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_rating_reviews_for_car_rental",
+     "args": {
+      "company_name": [
+       "Green Motion"
+      ]
+     },
+     "id": "get_rating_reviews_for_car_rental_15"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'Green Motion': 'Rating: 4.3\\nReviews: Excellent selection of electric and hybrid vehicles\\nThe booking process was straightforward\\nFriendly and knowledgeable staff'}"
+    }
+   ],
+   "tool_call_id": "get_rating_reviews_for_car_rental_15",
+   "tool_call": {
+    "function": "get_rating_reviews_for_car_rental",
+    "args": {
+     "company_name": [
+      "Green Motion"
+     ]
+    },
+    "id": "get_rating_reviews_for_car_rental_15"
+   },
+   "error": null
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "I got both ratings now. New Car Rental has a higher rating (4.5 vs 4.3). Let me get the car rental prices now."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_car_price_per_day",
+     "args": {
+      "company_name": [
+       "New Car Rental"
+      ]
+     },
+     "id": "get_car_price_per_day_16"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_car_price_per_day_16",
+   "tool_call": {
+    "function": "get_car_price_per_day",
+    "args": {
+     "company_name": [
+      "New Car Rental"
+     ]
+    },
+    "id": "get_car_price_per_day_16"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_car_price_per_day",
+     "args": {
+      "company_name": [
+       "New Car Rental"
+      ]
+     },
+     "id": "get_car_price_per_day_17"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_car_price_per_day_17",
+   "tool_call": {
+    "function": "get_car_price_per_day",
+    "args": {
+     "company_name": [
+      "New Car Rental"
+     ]
+    },
+    "id": "get_car_price_per_day_17"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_car_price_per_day",
+     "args": {
+      "company_name": [
+       "New Car Rental"
+      ]
+     },
+     "id": "get_car_price_per_day_18"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_car_price_per_day_18",
+   "tool_call": {
+    "function": "get_car_price_per_day",
+    "args": {
+     "company_name": [
+      "New Car Rental"
+     ]
+    },
+    "id": "get_car_price_per_day_18"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "tool_calls": [
+    {
+     "function": "get_car_price_per_day",
+     "args": {
+      "company_name": [
+       "New Car Rental"
+      ]
+     },
+     "id": "get_car_price_per_day_19"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": ""
+    }
+   ],
+   "tool_call_id": "get_car_price_per_day_19",
+   "tool_call": {
+    "function": "get_car_price_per_day",
+    "args": {
+     "company_name": [
+      "New Car Rental"
+     ]
+    },
+    "id": "get_car_price_per_day_19"
+   },
+   "error": "ServiceTimeout: Service temporarily unavailable: the request timed out."
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Let me try once more for the price."
+    }
+   ],
+   "tool_calls": [
+    {
+     "function": "get_car_price_per_day",
+     "args": {
+      "company_name": [
+       "New Car Rental"
+      ]
+     },
+     "id": "get_car_price_per_day_20"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "content": [
+    {
+     "type": "text",
+     "content": "{'New Car Rental': 50.0}"
+    }
+   ],
+   "tool_call_id": "get_car_price_per_day_20",
+   "tool_call": {
+    "function": "get_car_price_per_day",
+    "args": {
+     "company_name": [
+      "New Car Rental"
+     ]
+    },
+    "id": "get_car_price_per_day_20"
+   },
+   "error": null
+  },
+  {
+   "role": "user",
+   "content": [
+    {
+     "type": "text",
+     "content": "Hi, any update on this?"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "content": "Yes! I've gathered all the information for your London trip. Here's the complete summary:\n\n## \u2708\ufe0f Flight Recommendation (Cheapest Option)\n\nI found 3 flights from Paris to London:\n\n| Airline | Flight Number | Departure | Price (per person) |\n|---------|--------------|-----------|-------------------|\n| British Airways | BA123 | 09:00 | $200 |\n| Air France | AF456 | 12:00 | $180 |\n| **EasyJet** | **EJ789** | **15:00** | **$150** \u2705 |\n\n**Cheapest option: EasyJet**\n- **Airline:** EasyJet\n- **Flight Number:** EJ789\n- **Schedule:** 15:00 \u2192 17:00\n- **Price for 2 people:** $300 ($150 \u00d7 2)\n- **Contact:** +44 987654321\n\n## \ud83d\ude97 Car Rental Recommendation (Best Rating)\n\n| Company | Rating |\n|---------|--------|\n| **New Car Rental** | **4.5** \u2705 |\n| Green Motion | 4.3 |\n\n**Best rated: New Car Rental**\n- **Company:** New Car Rental\n- **Rating:** 4.5 \u2b50\n- **Reviews:** Wide range of vehicles, competitive prices, efficient and friendly service\n- **Price per day:** $50\n- **Total for 4 days:** $200\n\n## \ud83d\udccb Trip Summary\n\n| Item | Details | Cost |\n|------|---------|------|\n| Flight | EasyJet EJ789 | $300 (2 people) |\n| Car Rental | New Car Rental (4.5\u2b50) | $200 (4 days) |\n| **Total** | | **$500** |\n\n**Note:** I wasn't able to complete the flight booking directly through my tools, so I'd recommend booking the EasyJet flight through their website or by calling +44 987654321. \n\nWould you like me to proceed with reserving the car rental from New Car Rental, or help you find hotels and restaurants in London as well?"
+    }
+   ],
+   "tool_calls": null
+  }
+ ]
+}
