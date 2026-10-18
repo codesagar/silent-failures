@@ -60,3 +60,14 @@ non-response in context; CONTINGENCY: if any model's B3 > 30%, a clean no-stage-
 V1 probe on 100 random censored episodes of that model will be run and reported
 before B3 is interpreted as a capability deficit. No ablation-causal claims
 (Finding 3 stands). The counterfactual "cap raised, no user turn" remains unmeasured.
+
+## Post-registration clarification (pre-run, documented): fidelity normalization
+
+Smoke testing revealed AgentDojo environments stamp wall-clock datetimes on send-type tool
+outputs (e.g., `send_email` -> `timestamp: <now>`), making byte-exact replay impossible by
+construction. The fidelity string-match normalizes `timestamp: <datetime>` substrings on
+both sides before comparison; everything else remains byte-compared. This is the only
+relaxation; it was adopted after a clean episode false-failed on exactly this field and
+before any full probe lane ran. Smoke also confirmed hidden-rerun episodes fail fidelity
+as predicted (REPLAY-INFIDELITY by RNG misalignment) - e.g., nemotron has only 8 clean
+censored episodes of 148; per-model clean counts will be reported with the results.
