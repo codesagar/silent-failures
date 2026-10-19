@@ -1,0 +1,41 @@
+name: Publish research website
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'site/**'
+      - 'site-src/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Rebuild presentation from frozen reports
+        run: python3 site-src/build.py
+      - name: Verify evidence links, accessible diagrams, and generated output
+        run: |
+          python3 site-src/validate.py
+          git diff --exit-code -- site
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
