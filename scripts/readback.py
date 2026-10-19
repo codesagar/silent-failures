@@ -111,7 +111,7 @@ def main():
             return f"{100*k/n:.1f}% [{100*lo:.1f},{100*hi:.1f}]"
         w(f"| {m} | {n} | {f(any_rr)} | {f(novel)} | {f(rep)} | {nowrite} | {PREV_STATED[m]} |")
     text = "\n".join(lines)
-    Path("READBACK.md").write_text(text + "\n")
+    Path("analysis/READBACK.md").write_text(text + "\n")
     print(text)
 
 

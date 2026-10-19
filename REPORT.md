@@ -208,21 +208,21 @@ instructed verification). Full sweep with per-claim verdicts and contradictions:
 
 | File | Contents |
 |---|---|
-| PREREGISTRATION.md + AMENDMENT-1..5 | hypotheses, design, every mid-run decision with timestamps, incl. corrections |
-| DATA_MANIFEST.json, QA_FINAL.txt | episode counts, content hashes, integrity audit (0 duplicates, 0 harness errors) |
-| **REMEDIATED_TABLES.md** + per_task_rates.csv | **primary v2 tables** (dosed-only, baseline-anchored, cluster-bootstrapped, paired contrasts, per-task) |
-| **PROBE_ANALYSIS.md** + probe_results/ | wrap-up probe outcomes + claim grading, per-model, pre-registered slices |
-| **REAUDIT.md** | strengthened independent re-audit of all fabrication candidates + reverse audit |
-| **READBACK.md** + readback.py | post-write re-reading, committed definitions, novel-vs-repeat split |
-| **PERSISTENCE.md** + persistence.py | H4 + retry micro-metrics on the primary set (supersedes v1 micro-metrics) |
-| **SCOPE_AND_VALIDITY.md**, **TIMELINE.md**, verification/ | scope card; git-verified timeline; independent v2 recomputation audit + methodology review |
-| TRANSPARENCY.md | all 15 review findings with dispositions; REVIEW_RESPONSE.md maps finding→artifact |
+| prereg/ (PREREGISTRATION + AMENDMENT-1..5) | hypotheses, design, every mid-run decision with timestamps, incl. corrections |
+| data/DATA_MANIFEST.json, data/QA_FINAL.txt | episode counts, content hashes, integrity audit (0 duplicates, 0 harness errors) |
+| **analysis/REMEDIATED_TABLES.md** + per_task_rates.csv | **primary v2 tables** (dosed-only, baseline-anchored, cluster-bootstrapped, paired contrasts, per-task) |
+| **analysis/PROBE_ANALYSIS.md** + probe_results/ | wrap-up probe outcomes + claim grading, per-model, pre-registered slices |
+| **analysis/REAUDIT.md** | strengthened independent re-audit of all fabrication candidates + reverse audit |
+| **analysis/READBACK.md** + scripts/readback.py | post-write re-reading, committed definitions, novel-vs-repeat split |
+| **analysis/PERSISTENCE.md** + scripts/persistence.py | H4 + retry micro-metrics on the primary set (supersedes v1 micro-metrics) |
+| **docs/SCOPE_AND_VALIDITY.md**, **docs/TIMELINE.md**, verification/ | scope card; git-verified timeline; independent v2 recomputation audit + methodology review |
+| docs/TRANSPARENCY.md | all 15 review findings with dispositions; REVIEW_RESPONSE.md maps finding→artifact |
 | reviews/ | the five adversarial reports + probe design review, verbatim |
-| CONDUCT_ANALYSIS.md, SUPPLEMENTARY_ANALYSES.md, evidence_classes.md, DETERMINISTIC_TABLES.md | v1 analyses (superseded where TRANSPARENCY says so; micro-metrics still current) |
+| analysis/v1/ | v1 analyses (superseded where TRANSPARENCY says so; micro-metrics still current) |
 | figures/fig1..3_v2*.png + figures_v2.py | v2 figures with committed generator |
 | demos/demo1..4 | exemplar transcripts: honest abandon, silent spin, contradicted claim, unverified claim |
-| BLIND_SPOTS.md | self-audit register, updated post-review |
-| experiment.py, probe.py, classifier.py, probe_classify.py, reaudit.py, analyze*.py, qa_check.py | full harness |
+| docs/BLIND_SPOTS.md | self-audit register, updated post-review |
+| scripts/ (+ scripts/legacy/ for day-0 pilot and v1 analyses) | full harness |
 
 ## Limitations (abbreviated; full register in BLIND_SPOTS.md and TRANSPARENCY.md)
 

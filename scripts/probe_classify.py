@@ -431,7 +431,7 @@ def stage_table():
       ", ".join(f"{m} {shell[(m, 'A7')]}" for m in models if shell[(m, 'A7')]) + ".")
     w("- The probe does not retroactively relabel any original episode (pre-registered).")
 
-    Path("PROBE_ANALYSIS.md").write_text("\n".join(lines) + "\n")
+    Path("analysis/PROBE_ANALYSIS.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines[:40]))
     print(f"\nwrote PROBE_ANALYSIS.md; final label distribution: "
           f"{dict(Counter(labels.get(it['id']) for it in items))}")

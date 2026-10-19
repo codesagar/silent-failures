@@ -158,5 +158,5 @@ for m in models:
     P(f"| {m} | " + " | ".join(cells) + " |")
 
 text = "\n".join(out)
-Path("CONDUCT_ANALYSIS.md").write_text(text)
+Path("analysis/v1/CONDUCT_ANALYSIS.md").write_text(text)
 print(text)

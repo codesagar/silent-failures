@@ -9,7 +9,7 @@ independently re-verified (every headline number recomputed from raw data by cod
 never touched).
 
 **Start here: [REPORT.md](REPORT.md)** — headline findings, engineering insights, related
-work, limitations. **[SCOPE_AND_VALIDITY.md](SCOPE_AND_VALIDITY.md)** states exactly what was
+work, limitations. **[docs/SCOPE_AND_VALIDITY.md](docs/SCOPE_AND_VALIDITY.md)** states exactly what was
 measured and what the design does not license.
 
 ## Headline results (details and intervals in REPORT.md / REMEDIATED_TABLES.md)
@@ -28,33 +28,37 @@ measured and what the design does not license.
 - Found along the way: a previously unreported silent re-run behavior in the benchmark
   substrate itself (verification/agentdojo-bug-assessment.md).
 
-## Repository map
+## Repository layout
 
-| Area | Files |
+| Path | Contents |
 |---|---|
-| Write-up | REPORT.md (v2, master), SCOPE_AND_VALIDITY.md, TIMELINE.md |
-| Pre-registration | PREREGISTRATION.md + PREREGISTRATION-AMENDMENT-1..5.md (frozen; every mid-run decision timestamped) |
-| Review trail | reviews/ (five adversarial reports, verbatim), TRANSPARENCY.md (all findings + dispositions), REVIEW_RESPONSE.md, BLIND_SPOTS.md, verification/ (independent recomputation audit + methodology review of the remediated package) |
-| Primary analyses | REMEDIATED_TABLES.md, PROBE_ANALYSIS.md, REAUDIT.md, READBACK.md, PERSISTENCE.md, per_task_rates.csv, figures/ |
-| v1 analyses (superseded where TRANSPARENCY says so) | CONDUCT_ANALYSIS.md, SUPPLEMENTARY_ANALYSES.md, evidence_classes.md, DETERMINISTIC_TABLES.md |
-| Harness | experiment.py (injector + runner), probe.py (wrap-up probe), classifier.py + probe_classify.py (claim-label cascade), reaudit.py, analyze*.py, readback.py, persistence.py, figures_v2.py, qa_check.py |
-| Data | results/ (all 19,380 episode records, JSONL), probe_results/ (1,300 probe episodes + transcripts), classify/ (every label with votes), DATA_MANIFEST.json |
+| `REPORT.md` | The master write-up (start here) |
+| `prereg/` | Frozen pre-registration + 5 amendments (every mid-run decision, timestamped) |
+| `docs/` | Governance: TRANSPARENCY (all findings + dispositions), REVIEW_RESPONSE, SCOPE_AND_VALIDITY (what the design does/doesn't license), TIMELINE (git-verified), BLIND_SPOTS |
+| `analysis/` | Current primary tables: REMEDIATED_TABLES, PROBE_ANALYSIS, REAUDIT, READBACK, PERSISTENCE, per_task_rates.csv; `analysis/v1/` holds the superseded pre-remediation analyses |
+| `reviews/` | The five adversarial review reports, verbatim |
+| `verification/` | Independent re-verification of the remediated package (recomputation audit + methodology review + AgentDojo bug assessment) |
+| `research/` | Background research that drove design decisions (AgentDojo tooling, judge-calibration evidence) |
+| `scripts/` | The harness: experiment.py (injector + runner), probe.py, classifier.py + probe_classify.py (claim-label cascade), reaudit.py, analyze_remediated.py, readback.py, persistence.py, figures_v2.py, qa_check.py; `scripts/legacy/` holds day-0 pilot/smoke and v1 analyses |
+| `results/`, `probe_results/`, `classify/` | All 19,380 episode records; 1,300 probe episodes + transcripts; every label with judge votes |
+| `data/` | DATA_MANIFEST.json, QA_FINAL.txt, labeling sheet, TRANSCRIPTS_SHA256 |
+| `figures/`, `demos/` | v2 figures (committed generator) and four exemplar transcripts |
 
 ## Reproducing
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -r requirements.txt
 cp endpoints.example.json endpoints.json   # fill in your gateway / model servers / token file
-# Analyses re-run from the frozen data without any model access:
-.venv/bin/python analyze_remediated.py     # -> REMEDIATED_TABLES.md
-.venv/bin/python probe_classify.py table   # -> PROBE_ANALYSIS.md
-.venv/bin/python figures_v2.py             # -> figures/*_v2.png
+# Analyses re-run from the frozen data without any model access (run from repo root):
+.venv/bin/python scripts/analyze_remediated.py    # -> analysis/REMEDIATED_TABLES.md
+.venv/bin/python scripts/probe_classify.py table  # -> analysis/PROBE_ANALYSIS.md
+.venv/bin/python scripts/figures_v2.py            # -> figures/*_v2.png
 # Re-running experiments/judging requires live endpoints (see REPORT.md for the model roster).
 ```
 
 Episode records in `results/` are self-contained for all table-level analyses. Full
 step-by-step transcripts (~300 MB) are published as a release asset
-(`transcripts.tar.zst`); `TRANSCRIPTS_SHA256` in this repo pins its hash. Transcript-dependent
+(`transcripts.tar.zst`); `data/TRANSCRIPTS_SHA256` pins its hash. Transcript-dependent
 analyses (readback.py, persistence.py, probe replay) need them unpacked at `logs-experiment/`.
 
 ## Provenance note
@@ -64,7 +68,7 @@ This public history was exported from the private research repository with
 timeline in TIMELINE.md is stated against them); employer-identifying hostnames, usernames,
 and two ephemeral working notes were mechanically redacted/removed across all commits, and
 commit hashes therefore differ from those cited in documents frozen before export (mapping in
-TIMELINE.md). No data, labels, or analysis content was altered.
+docs/TIMELINE.md). No data, labels, or analysis content was altered.
 
 ## License
 

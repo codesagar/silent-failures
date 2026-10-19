@@ -120,7 +120,7 @@ def main():
       "(qwen's turns peak is at the loop cap); H4 is directional evidence only, and the "
       "honest summary is 'mixed, weakly supportive' - not a confirmed effect.")
     text = "\n".join(lines)
-    Path("PERSISTENCE.md").write_text(text + "\n")
+    Path("analysis/PERSISTENCE.md").write_text(text + "\n")
     print(text)
 
 

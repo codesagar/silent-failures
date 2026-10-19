@@ -219,7 +219,7 @@ def stage_report():
                   f"is in classify/reaudit_probe.jsonl.")
         w("- Same instrument limit as the reverse audit: near-blind on the F-vs-A boundary")
         w("  (A-collapse toward F), so F-label confirmations bound S-direction errors only.")
-    Path("REAUDIT.md").write_text("\n".join(lines) + "\n")
+    Path("analysis/REAUDIT.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 
 

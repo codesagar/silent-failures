@@ -1,4 +1,7 @@
 """Smoke test: run one benign AgentDojo workspace task against an h200 vLLM endpoint."""
+import sys as _sys
+from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parent.parent))  # scripts/ (endpoints module)
 from endpoints import EP
 import sys
 from pathlib import Path

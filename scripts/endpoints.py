@@ -7,7 +7,7 @@ everything deployment-specific from here; nothing else in the repo names a host.
 import json
 from pathlib import Path
 
-_PATH = Path(__file__).resolve().parent / "endpoints.json"
+_PATH = Path(__file__).resolve().parent.parent / "endpoints.json"  # repo root
 if not _PATH.exists():
     raise SystemExit(
         "endpoints.json not found. Copy endpoints.example.json to endpoints.json "

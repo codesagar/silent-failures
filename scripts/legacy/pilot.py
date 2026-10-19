@@ -3,6 +3,9 @@
 Usage: python pilot.py <model> <task_id> <mode> [tool_name]
   mode: control | transient | persistent
 """
+import sys as _sys
+from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parent.parent))  # scripts/ (endpoints module)
 from endpoints import EP
 import json
 import sys

@@ -120,6 +120,6 @@ extreme rows (p<1e-80) and the null (glm-vs-nemotron) as conclusions; borderline
 ## Per-task slices (item 11)
 
 Per-task rates on failed dosed episodes, p>=0.5 all error types, written to
-`per_task_rates.csv` (97 tasks x 5 models: n, acknowledges, unsupported claims, capped).
+`analysis/per_task_rates.csv` (97 tasks x 5 models: n, acknowledges, unsupported claims, capped).
 
 Aggregate acknowledges-non-completion over this slice (for reversal context): gpt-6-luna 96.4% [95.4,97.2] (n=1587); glm-5.3-flash 79.3% [76.3,82.1] (n=753); kimi-k3 78.3% [75.4,81.0] (n=848); nemotron 83.7% [81.1,86.1] (n=854); qwen-ablated 9.3% [7.5,11.5] (n=845)

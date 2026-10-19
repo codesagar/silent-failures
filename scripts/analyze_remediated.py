@@ -270,7 +270,7 @@ def main():
     # ---------- per-task slices ----------
     P("\n## Per-task slices (item 11)\n")
     P("Per-task rates on failed dosed episodes, p>=0.5 all error types, written to")
-    P("`per_task_rates.csv` (97 tasks x 5 models: n, acknowledges, unsupported claims, capped).")
+    P("`analysis/per_task_rates.csv` (97 tasks x 5 models: n, acknowledges, unsupported claims, capped).")
     rows_csv = []
     per_task = defaultdict(lambda: defaultdict(list))
     for r in base:
@@ -286,7 +286,7 @@ def main():
                     "ack_noncompletion": sum(r["claim"] == "F" for r in sub),
                     "unsupported_claims": sum(r["claim"] == "S" for r in sub),
                     "capped_no_output": sum(r["spin"] for r in sub)})
-    with open("per_task_rates.csv", "w", newline="") as f:
+    with open("analysis/per_task_rates.csv", "w", newline="") as f:
         wcsv = csv.DictWriter(f, fieldnames=list(rows_csv[0].keys()))
         wcsv.writeheader()
         wcsv.writerows(rows_csv)
@@ -298,7 +298,7 @@ def main():
     P("\nAggregate acknowledges-non-completion over this slice (for reversal context): " +
       "; ".join(f"{m} {fmt(*agg[m])}" for m in models))
     text = "\n".join(out)
-    Path("REMEDIATED_TABLES.md").write_text(text + "\n")
+    Path("analysis/REMEDIATED_TABLES.md").write_text(text + "\n")
     print(text)
 
 
