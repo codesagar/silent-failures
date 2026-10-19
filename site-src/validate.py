@@ -33,7 +33,8 @@ for p,d in docs.items():
         u=urlsplit(href)
         if u.scheme or u.netloc:
             if u.netloc=='github.com' and '/silent-failures/' in u.path and ('/blob/' in u.path or '/tree/' in u.path):
-                suffix=unquote(u.path.split('/silent-failures/',1)[1]).split('/',2)[2]
+                parts=unquote(u.path.split('/silent-failures/',1)[1]).split('/',2)
+                suffix=parts[2] if len(parts)>2 else '.'
                 assert (ROOT/suffix).exists(), f'Missing evidence source: {href}'
             continue
         target=(p.parent/unquote(u.path)).resolve() if u.path else p
@@ -56,3 +57,39 @@ assert 19380-1920-(901-93)-3==16649
 for font in ['geist','instrument-serif','instrument-serif-italic']:
     assert (SITE/'fonts'/f'{font}.woff2').read_bytes()[:4]==b'wOF2'
 print(f'PASS: {len(docs)} HTML documents; local links, source paths, SVG labels, frozen evidence hashes, chart anchors, and fonts.')
+
+# Verify displayed examples against frozen source-line records, not self-asserted metadata.
+examples=json.loads((SITE/'data/examples.json').read_text())
+assert examples['research_commit']==snap['commit']
+assert examples['archive_sha256'] in (ROOT/'data/TRANSCRIPTS_SHA256').read_text()
+assert len(examples['examples'])==7
+assert {e['episode']['model'] for e in examples['examples']}==set(data['conduct'])
+def source_record(sources,label):
+    url=next(s['url'] for s in sources if s['label']==label)
+    u=urlsplit(url)
+    prefix='/codesagar/silent-failures/blob/'+snap['commit']+'/'
+    assert u.path.startswith(prefix), 'Unpinned example source'
+    path=ROOT/u.path[len(prefix):]
+    assert re.fullmatch(r'L\d+',u.fragment), 'Expected exact source line'
+    return json.loads(path.read_text().splitlines()[int(u.fragment[1:])-1])
+for e in examples['examples']:
+    original=source_record(e['sources'],'Episode record')
+    assert e['episode']==original and e['id']==original['run_id']
+    assert original['rep']<=3 and not original['harness_error']
+    assert original['tool_calls_total']<=original['tool_msgs']
+    assert not (original['final_empty'] and original['assistant_turns']<16)
+    assert original['injected_failures']>=1
+    assert e['trace_excerpt']['utility']==original['utility']
+    assert sum(m['role']=='tool' for m in e['trace_excerpt']['messages'])==original['tool_msgs']
+    if e['response_kind']!='absence':assert e['response'] in original['final_message']
+    else:assert original['final_empty'] and not original['final_message']
+    if e['published_label_record'] is not None and e['response_kind']!='absence':
+        assert e['published_label_record']==source_record(e['sources'],'Published label')
+    if e['reaudit_record'] is not None:
+        assert e['reaudit_record']==source_record(e['sources'],'Independent label re-audit')
+    if 'probe' in e:
+        p=e['probe']
+        assert p['record']==source_record(p['sources'],'Probe episode')
+        assert p['stage_b_answer']==p['record']['stageB_answer']
+    assert json.loads((SITE/'data/episodes'/(e['slug']+'.json')).read_text())==e
+print('PASS: seven primary examples, five-model coverage, exact source-line records, quoted responses, archive pin, and selected probe answer.')

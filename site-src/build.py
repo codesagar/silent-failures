@@ -201,6 +201,11 @@ blocks={
  'REPEAT_TABLE':data_table(['Model','Mixed-outcome task cells','Rate'],[[r[0],r[2]+'/97',r[3]] for r in repeat_rows],'Uninjected repeat reliability, r0–r3; retained cells have at least two repetitions'),
  'PERSISTENCE_TABLE':data_table(['Model','n','Mean retries','Max retry streak','Mean distinct tools','Mean tool calls'],table('analysis/PERSISTENCE.md','## Micro-metrics'),'Persistence on failed, dosed timeout episodes at p ≥ 0.75'),
 }
+from redesign_charts import build_charts
+from presentation import presentation_blocks
+blocks.update(build_charts(register, txt, line, rect, dot, C, conduct, errors, NAMES, DISPLAY))
+blocks.update(presentation_blocks(SRC, OUT))
+
 payload={'snapshot':SNAPSHOT,'conduct':conduct,'unsupported_claim_curves':curves,'error_channels':errors,'repeat_reliability':repeats,
          'notes':'Presentation extracts from published tables. No experiments or classifications rerun.'}
 (OUT/'data'/'findings.json').write_text(json.dumps(payload,indent=2)+'\n')

@@ -1,6 +1,6 @@
 # Silent Failures website
 
-Presentation-only addition. Existing research reports, data, labels, scripts, and examples are treated as the final evidence package. No fresh experiments, classifications, or scientific corrections are required to build this site.
+Presentation-only redesign of a final research package. Original reports, data, labels, scripts, registrations, and historical examples remain unchanged. No model experiments are run by the website or its build.
 
 ## Build and preview
 
@@ -10,31 +10,31 @@ python3 site-src/validate.py
 python3 -m http.server 8765 --directory site
 ```
 
-Open http://localhost:8765. Standard-library Python only; no Node build step, backend, or model access.
+Standard-library Python; static GitHub Pages output. The existing workflow rebuilds, validates, checks generated output against the commit, and deploys `site/` on a master-branch push. The pinned research snapshot remains `f12eb47614350aca1cdf21cefc18ab58dd95e9d0`.
 
-`index.html` and `methodology.html` here are authoring templates. `build.py` reads the frozen published Markdown tables, produces inline SVGs and standalone infographic HTML, and writes `site/`. Website CSS and JavaScript are copied from this directory. Fonts are self-hosted under `site/fonts/`, with their OFL licenses. GitHub Pages publishes only `site/`, via `.github/workflows/pages.yml`.
+## Authoring map
 
-`research-snapshot.json` pins the research commit and SHA-256 hashes of the source reports. The build fails if pinned evidence changes. Source links use that commit. `site/data/findings.json` contains chart values, intervals, and denominators extracted from the published tables. Website charts use the table's rounded values; they are not a fresh statistical analysis.
+- `index.html`: three findings, prominent real-episode selector, five-minute route.
+- `methodology.html`: research chronology, instruments, populations, secondary findings, context, and limitations.
+- `build.py`: reads frozen tables, enforces report hashes, generates static pages/data/standalone diagrams.
+- `redesign_charts.py`: wide/narrow conduct comparison, quiet-versus-explicit comparison, selected probe flow. Exact conduct counts cross-checked against original result/classification records; published table rates are asserted.
+- `presentation.py`: escapes and renders episode extracts, exports individual JSON records, and counts presenter-script words.
+- `examples.json`: seven complete selected saved conversations, original result and classification records, excerpt provenance, and one separately identified probe.
+- `example-evidence.md`: curation rationale, rejected candidates, archive/member provenance, interpretation boundaries.
+- `walkthrough.html`: six paced segments totaling five minutes; reading speed is explicitly an estimate.
+- `styles.css`, `app.js`: responsive layout and progressive enhancement. Core content and native disclosures work without JS.
+- `design.md`, `review-notes.md`: visual decisions and critique/verification record.
 
-## Visual system and provenance
+Fonts and their OFL licenses are self-hosted under `site/fonts/`. No external runtime dependencies. Wide figures have local scrolling; narrow principal figures have their own layouts. Diagram Design 2.6.110 is used at authoring time, not required at runtime or CI.
 
-Infographics follow the Diagram Design plugin 2.6.110: restrained editorial hierarchy, accessible inline SVG, orthogonal flow connectors, sparse focal accents, common quantitative scales, local scrolling for wide diagrams, and static readable output. Custom project styling is documented in `design.md`; the installed plugin and global profiles are not modified.
+## Evidence integrity
 
-Every infographic has a standalone self-contained HTML counterpart in `site/diagrams/`. Website versions inherit the locally hosted Geist and Instrument Serif fonts; standalone versions use their declared Arial/Georgia fallbacks for offline portability. The probe has a dedicated mobile composition preserving counts and selection. Charts remain readable without JavaScript; the only script enhances navigation state.
+`research-snapshot.json` pins the source reports and build fails on hash changes. Source links use the frozen commit. `site/data/findings.json` contains published chart values and intervals; this is a presentation extract, not a fresh analysis.
 
-## Content contract
+`validate.py` checks local links/anchors, source paths, accessible SVG labels, font signatures, frozen report hashes, chart anchors, source-line episode equality, primary example eligibility, exact final-response excerpts, original label records, the archive hash, five-model coverage, and the selected probe answer. It does not establish human label validity or creative/UI quality.
 
-- Main run, corrected analysis, and post-hoc follow-up remain distinguishable.
-- Original 24-hour intent is separate from actual duration.
-- Model names refer to the evaluated endpoints, not general model families.
-- Reported claims do not imply mental states or deceptive intent.
-- Denominators and interval types accompany findings; large episode counts do not imply independent samples.
-- No causal attribution to ablation, scaffold-free production guarantee, or claim of external peer review.
-- Historical inconsistencies are explained with links to their existing dispositions, not silently rewritten.
-- AI-assisted review, absent human calibration, registration timing, replay losses, and budget constraints remain visible.
+The full transcript archive is not currently downloadable from GitHub releases. Seven selected conversations were extracted from a local archive matching the frozen SHA-256 and republished as website-specific evidence. Their archive member hashes and pinned source lines are retained. The site discloses the public full-archive access gap.
 
-## Checks
+## Browser and review checks
 
-`validate.py` checks links, anchor IDs, frozen evidence, key chart values, font files, and accessible SVG labels. During initial implementation, all standalone diagrams also passed the plugin's `self_check.py`, and both full flowcharts passed its `verify-geometry.py`. Browser QA covers desktop/mobile layouts, local diagram scrolling, native details controls, no-JavaScript rendering, keyboard navigation, missing resources, and console errors.
-
-The workflow rebuilds, validates, checks generated output is current, and publishes the static directory. It does not install the Diagram Design plugin or require its files at runtime.
+Two substantive independent critique rounds assess evidence and actual rendered UI. Browser checks cover desktop, tablet, mobile, 320px local scrolling, keyboard controls, deep links/back navigation, all seven selectors, no-JS access, reduced motion, fonts, accessibility scans, and console/network errors. Diagram Design self-checks and probe geometry checks run separately. `review-notes.md` records concrete findings, fixes, and verification limits.
