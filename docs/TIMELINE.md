@@ -12,11 +12,11 @@ edited; their header dates stand as written, with the errors documented here.
 | When (2026, UTC) | Event | Source |
 |---|---|---|
 | 10-17 03:08:39 | First full-run episode executes | episode `ts` min |
-| 10-17 03:54:53 | Initial commit: harness + PREREGISTRATION.md + pilot (n=18) | git e0b98a6 |
-| 10-17 04:01 / 04:04 | Amendments 1–2 committed (scope expansion; kimi parity) | git 293df4f, 301768e |
-| 10-17 14:49 | Amendment 3 committed (worker-death incident) | git 939b6b4 |
+| 10-17 03:54:53 | Initial commit: harness + PREREGISTRATION.md + pilot (n=18) | git 9e253f1 |
+| 10-17 04:01 / 04:04 | Amendments 1–2 committed (scope expansion; kimi parity) | git 19a19e6, dcc3006 |
+| 10-17 14:49 | Amendment 3 committed (worker-death incident) | git 80f01cb |
 | 10-17 19:36:50 | Last episode executes | episode `ts` max |
-| 10-17 19:37:57 | Dataset freeze commit (19,380/19,380, QA clean) | git d4b6859 |
+| 10-17 19:37:57 | Dataset freeze commit (19,380/19,380, QA clean) | git c2a1011 |
 | 10-17 23:10 → 10-18 | Amendment 4, classifier, controls, analysis, report | git log |
 
 ## The two documented date errors (clerical, now disclosed)
@@ -46,3 +46,11 @@ edited; their header dates stand as written, with the errors documented here.
   all 1,166 pre-commit episodes from the headline p>=0.75 table shifts no rate by more
   than 0.9pp (largest: nemotron acknowledges 95.1%->94.2%, unsupported claims
   4.1%->4.9%), well inside every published interval.
+
+## Public-export note
+
+This public history was rewritten from the private original with `git filter-repo`
+(identifying strings redacted; two ephemeral working notes removed; see README provenance
+note). Author/commit DATES are preserved exactly — every timestamp above is unchanged —
+but commit HASHES differ from the private originals; the hashes cited in this file are the
+public ones. The private repository remains the canonical audit trail.
