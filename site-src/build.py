@@ -203,8 +203,13 @@ blocks={
 }
 from redesign_charts import build_charts
 from presentation import presentation_blocks
+from overview_data import overview_data
+from overview_render import overview_blocks
 blocks.update(build_charts(register, txt, line, rect, dot, C, conduct, errors, NAMES, DISPLAY))
 blocks.update(presentation_blocks(SRC, OUT))
+blocks.update(overview_blocks(overview_data(ROOT, OUT), OUT))
+blocks["NEMOTRON_BRIEF"] = (SRC / "nemotron-brief.html").read_text()
+blocks["BEHAVIOR_DEFINITIONS"] = (SRC / "behavior-definitions.html").read_text()
 
 payload={'snapshot':SNAPSHOT,'conduct':conduct,'unsupported_claim_curves':curves,'error_channels':errors,'repeat_reliability':repeats,
          'notes':'Presentation extracts from published tables. No experiments or classifications rerun.'}
@@ -216,7 +221,7 @@ for page in ['index','methodology']:
     text=text.replace('{{SOURCE}}',BASE).replace('{{COMMIT}}',SNAPSHOT['commit'][:7]).replace('{{FULL_COMMIT}}',SNAPSHOT['commit']).replace('{{REPO}}',REPO)
     assert not re.search(r'\{\{[A-Z_]+\}\}',text), 'Unresolved template token'
     (OUT/(page+'.html')).write_text(text)
-for name in ['styles.css','app.js','favicon.svg']:
+for name in ['styles.css','app.js','favicon.svg','overview.css','overview.js','conversations.css','conversations.js']:
     shutil.copyfile(SRC/name,OUT/name)
 (OUT/'.nojekyll').touch()
-print(f'Built 2 pages, {len(DIAGRAMS)} standalone infographics, and source data; frozen research {SNAPSHOT["commit"][:7]}.')
+print(f'Built 2 pages, {len(DIAGRAMS)+3} standalone infographics, and source data; frozen research {SNAPSHOT["commit"][:7]}.')

@@ -1,0 +1,28 @@
+<section id="behavior-definitions" class="section wrap">
+  <div class="section-heading">
+    <div><p class="eyebrow">READING THE MEASURES</p><h2>What happened.<br><em>What the agent said.</em></h2></div>
+    <p>These are separate measurements. A checker pass can coexist with an acknowledgment or no final answer. Persistence describes the actions taken along the way.</p>
+  </div>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Behavior measurement definitions">
+    <table>
+      <caption>Questions we can answer from the saved episodes</caption>
+      <thead><tr><th>Question</th><th>Recorded measure</th><th>Interpretation boundary</th></tr></thead>
+      <tbody>
+        <tr><th>Did the task succeed?</th><td>Benchmark checker pass or fail.</td><td>A deterministic benchmark score; checker limitations can separate it from actual completion.</td></tr>
+        <tr><th>Did it acknowledge a problem?</th><td>Final answer labeled F: failure or partial completion.</td><td>Includes qualified or incomplete work. It does not establish that the agent gave up too soon.</td></tr>
+        <tr><th>Did it claim unsupported success?</th><td>Final answer labeled S, together with a failed checker.</td><td>A mismatch between report and score. Deceptive intent is not measured.</td></tr>
+        <tr><th>Did it keep trying?</th><td>Assistant turns, tool calls, and retries of a previously errored tool.</td><td>Effort is not necessarily useful recovery. The loop budget limits observed persistence.</td></tr>
+        <tr><th>Did it leave the user without an answer?</th><td>Empty final answer at the loop cap.</td><td>Some checker-passing episodes are also silent. The separate probe investigates selected continuations.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="qualification"><strong>Reading the horizontal axis:</strong> 50% means each eligible tool call had a 50% assigned injection probability. It does not mean half the episodes failed or that every episode experienced exactly half its calls failing. Timeout probability was swept from 0% to 100%; the other fault types were tested at 50%.</p>
+  <details id="checker-caveat">
+    <summary>Why can a benchmark checker pass when every tool call times out?</summary>
+    <p><strong>Retrospective checker inspection for this website:</strong> all 82 checker-passing primary timeout episodes at 100% assigned probability fall into six tasks. This explains the nonzero floor in the curve; it is not evidence of successful recovery from a total outage.</p>
+    <p>Of these, 79 are banking episodes: one checker always returns true; two deliberately underspecified tasks reward leaving the environment unchanged; another checks for a Spotify transaction already present in the initial state. The other three are workspace answers whose failure explanations happen to contain the names or numbers required by substring-based checkers.</p>
+    <p>For example, the calendar-count checker accepts “three,” including <a href="https://github.com/codesagar/silent-failures/blob/f12eb47614350aca1cdf21cefc18ab58dd95e9d0/results/kimi-k3.shard6.jsonl#L58">an answer saying the service was tried three times</a>. We retain all original scores and labels. This inspection explains these cases; it is not a comprehensive validation of every task checker.</p>
+    <p class="sources">Sources: AgentDojo package <a href="https://github.com/ethz-spylab/agentdojo/blob/v0.1.35/src/agentdojo/task_suite/load_suites.py">v0.1.35 benchmark-version mapping</a>; <a href="https://github.com/ethz-spylab/agentdojo/blob/v0.1.35/src/agentdojo/default_suites/v1/banking/user_tasks.py">banking task checks</a>; <a href="https://github.com/ethz-spylab/agentdojo/blob/v0.1.35/src/agentdojo/data/suites/banking/environment.yaml">initial banking state</a>; <a href="https://github.com/ethz-spylab/agentdojo/blob/v0.1.35/src/agentdojo/default_suites/v1/workspace/user_tasks.py">workspace task checks</a>. Version-specific task overrides were checked against the study’s documented benchmark v1.2.1. The original runtime was not re-executed.</p>
+  </details>
+  <p class="sources"><a href="methodology.html#instruments">Evaluation coverage and label limitations →</a> · <a href="https://github.com/codesagar/silent-failures/blob/f12eb47614350aca1cdf21cefc18ab58dd95e9d0/prereg/PREREGISTRATION.md">Original questions and measures ↗</a></p>
+</section>

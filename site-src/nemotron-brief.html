@@ -1,0 +1,27 @@
+<section id="nemotron-focus" class="section wrap">
+  <div class="section-heading">
+    <div><p class="eyebrow">MODEL IN FOCUS / NEMOTRON</p><h2>Recovery and reporting<br><em>need separate checks.</em></h2></div>
+    <p>Nemotron is a useful example of why no single behavior score tells the whole story. These results describe one endpoint in this scaffold, with 355 hidden-rerun episodes excluded from the primary analysis.</p>
+  </div>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Nemotron behavior across measurements">
+    <table>
+      <caption>Nemotron: different questions, explicitly different populations</caption>
+      <thead><tr><th>Measure</th><th>Observed result</th><th>Population</th></tr></thead>
+      <tbody>
+        <tr><th>Task success, by benchmark checker</th><td>91.8% at 0% faults → 78.1% at 50% → 53.7% at 75%.</td><td>All eligible timeout/control episodes: 356/388, 285/365, 159/296.</td></tr>
+        <tr><th>Reporting under heavy timeouts</th><td>95.1% acknowledge non-completion; 4.1% claim success; 0.8% end without an answer.</td><td>389 failed episodes with actual injection at assigned 75–100%.</td></tr>
+        <tr><th>Unsupported claims across fault types</th><td>32.0% with timeouts; 52.5% with lost responses.</td><td>Failed, actually dosed episodes at 50%: n = 75 and 80. These are different selected groups.</td></tr>
+        <tr><th>Persistence</th><td>4.9 retries of an already-errored tool per episode, on average.</td><td>The same 389 heavy-timeout failed, dosed episodes; exploratory mean.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>At 50% timeout probability, Nemotron’s checker-pass rate falls below GLM, Kimi, and Qwen and above Luna in the observed primary sample. Its acknowledgment rate alone would miss that difference. Unequal exclusions and serving setups limit causal comparisons.</p>
+  <p>In the heavy-timeout failed subset, Nemotron’s 4.1% unsupported-claim rate is the largest observed point estimate (others: 0.3–1.9%); uncertainty overlaps some peers. Its 4.9 mean retries sits between Luna’s 2.3 and Qwen’s 13.1. These comparisons describe different aspects of behavior, not one overall ranking.</p>
+  <p>Two selected conversations show different unsupported claims: <a href="#example-nemotron-contradicted">a calendar event described as created after its writes failed</a>, and <a href="#example-nemotron-unverified">an empty transaction response treated as zero spending</a>. They illustrate distinct failure modes; they are not frequency estimates.</p>
+  <details>
+    <summary>Re-reading, repeated runs, and an interview takeaway</summary>
+    <p>Nemotron re-reads after its last write in 2.1% of eligible lost-response episodes (n = 141); the study cannot separate verification from blind retry. With no injected faults, 8 of 97 task cells mix passes and failures across repeated runs (8.2%). Neither observation measures intent.</p>
+    <p><strong>A useful engineering question:</strong> can an agent preserve recovery effort while requiring evidence for its final claims and providing a clear status before its budget runs out? This experiment measures those behaviors separately; it does not test a production fix.</p>
+  </details>
+  <p class="sources"><a href="https://github.com/codesagar/silent-failures/blob/f12eb47614350aca1cdf21cefc18ab58dd95e9d0/scripts/figures_v2.py">Corrected success-curve derivation ↗</a> · <a href="https://github.com/codesagar/silent-failures/blob/f12eb47614350aca1cdf21cefc18ab58dd95e9d0/analysis/REMEDIATED_TABLES.md">Reporting and repeat tables ↗</a> · <a href="https://github.com/codesagar/silent-failures/blob/f12eb47614350aca1cdf21cefc18ab58dd95e9d0/analysis/PERSISTENCE.md">Persistence ↗</a> · <a href="https://github.com/codesagar/silent-failures/blob/f12eb47614350aca1cdf21cefc18ab58dd95e9d0/analysis/READBACK.md">Re-reading ↗</a></p>
+</section>

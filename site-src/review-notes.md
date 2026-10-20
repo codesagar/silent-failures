@@ -48,3 +48,16 @@ Reports: `reviews/round2-evidence.md` and `reviews/round2-ui.md`.
 - The full transcript archive has no public GitHub release asset at inspection. Selected verified conversations are hosted with this site; missing original payloads/environment snapshots are not fabricated. These source-access and measurement limits remain disclosed.
 
 Deployment status is verified through the existing GitHub Pages workflow and the live served page after the website commit; original research and repository visibility remain unchanged.
+
+## October 20: full experiment overview and Nemotron focus
+
+User requested implementation of the broader behavioral story, complete selected conversations, transparent label definitions, and a balanced Nemotron comparison for an interview.
+
+- Three agents independently assessed evidence gaps, analysis dimensions, and the prior editorial constraint. Consensus: restore the probability sweep and performance context before selected failure-conduct comparisons; retain expected/null findings.
+- New deterministic aggregates retain the exact primary inclusion rules and original label cascade. Full hashes pin classifier inputs and the result manifest. Published conditional rates and repeat counts reconcile. The exported 55 views include five timeout cells reused in the fault-type comparison (50 distinct condition cells).
+- Independent raw-record review matched every exported numerator, denominator, outcome/report cross-tab, and effort mean. Render checks cover 60 curve points, 150 stack segments, all cross-tab/conditional rows, exact success intervals, and fault-type values. The 2,000-resample bootstrap endpoints were not independently reimplemented; reproducibility and method were checked.
+- New accounting correction: hidden/supplement overlap is 91; hidden/artifact overlap is two. The frozen “93 supplement overlaps” wording is inaccurate. Primary total 16,649 remains unchanged; historical files were preserved.
+- Retrospective upstream checker inspection explains the 82 retained checker passes at 100% timeout. Curves are labeled benchmark checker outcomes; detailed sources and the limits of the inspection are visible.
+- Full seven-example archive and member hashes independently matched all 128 saved messages. Viewer exposes requested calls, arguments, results/errors, report labels, available judge votes, and separate checker outcomes. Qwen's final requested call lacks a returned result; counts explicitly distinguish 17 requests from 16 results. Original classifier truncation and the separate probe excerpt are disclosed.
+- Browser review caught and fixed mobile overflow in the probability inspector, initial message-hash scrolling through closed examples, and misleading green highlighting on unsupported final reports.
+- Final Chrome QA: 1440px, 1024px, 390px, and 320px layouts have no page overflow, loaded self-hosted fonts, no JavaScript errors, and zero Axe violations on the homepage. All seven selectors and no-JS disclosures work by keyboard; direct message links scroll to their revealed target; charts scroll locally by keyboard. Three new standalone quantitative diagrams pass Diagram Design self-checks.

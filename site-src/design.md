@@ -1,3 +1,29 @@
+# Silent Failures: behavioral research overview
+
+The October 20 update replaces the three-finding homepage with the original research question: how task outcomes, reporting, and persistence change as tool faults increase. Expected findings, similarities, and weak evidence are reportable. The five-minute interview route is optional, with Nemotron in context.
+
+## Current hierarchy
+
+Scope and evaluation coverage → all-model success sweep → Nemotron comparison → full outcome/report distribution → persistence → five fault types → repetition consistency → measurement definitions → complete selected conversations → separate cap follow-up.
+
+Assigned per-call probability is the controlled horizontal axis; realized exposure is a separate filter. The timeout sweep spans six probabilities; other fault types exist only at 50%. The full primary population is visible before condition-specific denominators.
+
+Success, final communication, and effort are separate measurements. Outcome stacks partition checker passes from four failed-task report categories; exact pass/fail × S/F/A/empty cross-tabs retain all combinations. Assistant turns and tool requests/results are kept distinct. Task checkers are not assumed to validate every natural-language requirement.
+
+## Visual system
+
+Retain the existing warm paper, Instrument Serif headings, Geist text, and restrained accent. Nemotron uses the accent within all-model curves, supported by a balanced comparison rather than a model-family ranking. Lines use redundant dash patterns; tables provide exact values and uncertainty. Charts have local horizontal scrolling on small screens. Every chart and transcript remains accessible without JavaScript.
+
+Complete saved conversations show all requested calls, arguments, returned outputs/errors, final behavior, and label provenance. Unsupported final reports use amber rather than success-green. Links target individual messages. Qwen's last unreturned request is explicit. Summaries provide orientation but do not replace the trace.
+
+## Diagram Design
+
+Continue the customized project style (Diagram Design 2.6.110, fit preset). New line charts use a shared zero baseline and six true probability positions; stacked bars are separate small multiples for each model with a shared 0–100% scale. No semantic schematic pattern applies to these quantitative charts. Standalone HTML versions retain exact tables. Source hashes, point positions, segment widths, and denominators are verified separately from visual QA.
+
+## Historical design
+
+The following prior design is preserved for context; its three-finding/novelty-first hierarchy is superseded.
+
 # Silent Failures: five-minute evidence briefing
 
 The redesign replaces the rejected eight-section essay with three principal findings, a prominent evidence selector, and a separate research record. The first desktop viewport contains a conclusion and the full five-model comparison; mobile presents the conclusion first and then a dedicated narrow chart.

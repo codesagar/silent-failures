@@ -4,6 +4,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import hashlib
+import html
 import json
 import re
 
@@ -53,7 +54,10 @@ assert data['conduct']['qwen-ablated']['capped']['n']==574
 assert data['conduct']['gpt-6-luna']['ack']['value']==99.3
 assert all(len(v)==6 and v[-1]['value']==0 for v in data['unsupported_claim_curves'].values())
 assert sum(1 for v in data['error_channels'].values() if v[-1]['value']==max(x['value'] for x in v))==4
-assert 19380-1920-(901-93)-3==16649
+overview=json.loads((SITE/'data/overview.json').read_text())
+assert overview['coverage']['hidden_supplement_overlap']==91
+assert overview['coverage']['hidden_artifact_overlap']==2
+assert 19380-1920-3-(901-91-2)==overview['coverage']['primary']==16649
 for font in ['geist','instrument-serif','instrument-serif-italic']:
     assert (SITE/'fonts'/f'{font}.woff2').read_bytes()[:4]==b'wOF2'
 print(f'PASS: {len(docs)} HTML documents; local links, source paths, SVG labels, frozen evidence hashes, chart anchors, and fonts.')
@@ -93,3 +97,32 @@ for e in examples['examples']:
         assert p['stage_b_answer']==p['record']['stageB_answer']
     assert json.loads((SITE/'data/episodes'/(e['slug']+'.json')).read_text())==e
 print('PASS: seven primary examples, five-model coverage, exact source-line records, quoted responses, archive pin, and selected probe answer.')
+
+# Check that complete selected conversations, not only their summaries, are published.
+page=(SITE/'index.html').read_text()
+message_count=0
+for e in examples['examples']:
+    for i,m in enumerate(e['trace_excerpt']['messages']):
+        assert f'id="message-{e["slug"]}-{i+1}"' in page
+        message_html = page.split(f'id="message-{e["slug"]}-{i+1}"',1)[1].split('</li>',1)[0]
+        decoded = html.unescape(message_html)
+        content = m.get('content')
+        if isinstance(content,str):
+            assert content in decoded
+        elif isinstance(content,list):
+            for block in content:
+                if isinstance(block,dict) and block.get('type')=='text':
+                    assert block.get('content','') in decoded
+        for call in m.get('tool_calls') or []:
+            assert str(call['function']) in decoded and str(call['id']) in decoded
+            assert json.dumps(call.get('args'),ensure_ascii=False,indent=2) in decoded
+        if m.get('error') is not None:
+            value=m['error'] if isinstance(m['error'],str) else json.dumps(m['error'],ensure_ascii=False,indent=2)
+            assert value in decoded
+        message_count+=1
+assert message_count==page.count('data-message-index=')==128
+assert page.count('id="classification-')==7
+from overview_render import overview_blocks
+from overview_verify import verify_overview_render
+verify_overview_render(overview,overview_blocks(overview,SITE),page)
+print('PASS: 128 displayed conversation messages, seven classification panels, 60 curve points, 150 stack segments, and exact overview tables.')
