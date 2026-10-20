@@ -126,3 +126,6 @@ from overview_render import overview_blocks
 from overview_verify import verify_overview_render
 verify_overview_render(overview,overview_blocks(overview,SITE),page)
 print('PASS: 128 displayed conversation messages, seven classification panels, 60 curve points, 150 stack segments, and exact overview tables.')
+from comparison_verify import verify_comparisons
+verify_comparisons(ROOT)
+print('PASS: 107 matched groups, 511 exact episode exports, all 8,742 rendered messages, matrix counts, exposure tables, and exclusions.')

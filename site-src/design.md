@@ -20,6 +20,12 @@ Complete saved conversations show all requested calls, arguments, returned outpu
 
 Continue the customized project style (Diagram Design 2.6.110, fit preset). New line charts use a shared zero baseline and six true probability positions; stacked bars are separate small multiples for each model with a shared 0–100% scale. No semantic schematic pattern applies to these quantitative charts. Standalone HTML versions retain exact tables. Source hashes, point positions, segment widths, and denominators are verified separately from visual QA.
 
+## Matched evidence, beyond individual anecdotes
+
+Section six now leads with exact-condition paired comparisons and a five-model by six-behavior matrix. Counts describe the entire primary corpus; selected conversations illustrate those categories. Every available primary peer is retained for each chosen task/error/probability/repetition, with exclusions visible. The default calendar comparison is Nemotron/Kimi at r0, and spending comparison is Nemotron/Luna at r1. Different realized fault draws and call choices are displayed rather than implied away.
+
+The library has 110 starting examples, 107 groups, and 511 complete records. Two selectable agents sit in independent columns on desktop and stack on narrow screens; messages are never falsely aligned as shared events. Users can expand both full transcripts, inspect individual message links, view original label votes, and download each record. No-JS pages retain all eligible agents. Matrix cells show true zero categories rather than inventing examples.
+
 ## Historical design
 
 The following prior design is preserved for context; its three-finding/novelty-first hierarchy is superseded.

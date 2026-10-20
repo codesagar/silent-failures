@@ -19,6 +19,10 @@ Standard-library Python; static GitHub Pages output. The existing workflow rebui
 - `overview_render.py`, `overview.css`, `overview.js`: accessible charts, exact cross-tabs, and a progressively enhanced probability inspector.
 - `overview_verify.py`: verifies rendered chart coordinates, stack widths, numerators, denominators, and intervals against the export.
 - `behavior-definitions.html`, `nemotron-brief.html`: sourced definitions, retrospective checker inspection, and model comparison.
+- `comparison_catalog.py`, `comparison-catalog.json`: reproducible, hash-pinned selection of 110 anchors and all eligible exact-condition peers; 511 complete archive members across 107 groups. Full-primary matrix counts, original labels, raw source-line provenance, and excluded peer slots remain explicit. `--extract /path/to/transcripts.tar.zst` reproduces the catalogue; ordinary builds need only the committed catalogue.
+- `comparison_render.py`, `comparisons.css`, `comparisons.js`: matrix library, filters, two-agent comparisons, observed fault exposure, and complete paired transcripts.
+- `comparison_verify.py`: verifies all selected JSON, rendered messages, exposure tables, category links, and matched conditions.
+- `comparison-notes.json`: five trace-audited featured contrasts; notes retain differences in realized faults.
 - `conversations.css`, `conversations.js`: complete saved message threads and deep links, including unmatched final tool-call requests.
 - `methodology.html`: research chronology, instruments, populations, secondary findings, context, and limitations.
 - `build.py`: reads frozen tables, enforces report hashes, generates static pages/data/standalone diagrams.
@@ -47,3 +51,9 @@ Two substantive independent critique rounds assess evidence and actual rendered 
 ## October 20 coverage update
 
 Three independent agents reviewed evidence, measurement dimensions, and editorial structure; their implementation tasks were separated by file ownership. Raw-record reconciliation corrects a frozen prose overlap error: 91 hidden reruns overlap supplements, two overlap below-cap artifacts; the primary total remains 16,649. The website also documents a retrospective source inspection explaining all 82 checker passes at total timeout, without changing historical scores. Seven selected originals expose 128 complete saved messages and classification provenance. The cap probe remains separate.
+
+## Matched comparison library
+
+The primary matrix partitions checker/report outcomes into six categories: pass+S, fail+F, fail+S, no final answer (either checker result), ambiguous (either checker result), and pass+F. Counts cover all 16,649 primary episodes. Up to four diverse task/condition anchors per model/category are selected deterministically, plus the original seven. All eligible peers with exactly the same task, fault type, assigned probability, and repetition are included: 511 transcripts in 107 groups, with 24 excluded peer slots disclosed. No repetitions are substituted. Model-specific seeds and agent-specific tool choices mean realized errors are not identical.
+
+Generated `comparisons.html` and `comparisons/*.html` are static and work without JavaScript. Progressive enhancement filters matrix cells and shows two selected agents, keeping DOM order aligned with visual order. Full per-episode JSON is under `data/comparison-episodes/`; the public catalogue index contains policy, matrix, group memberships, and episode links.
